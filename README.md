@@ -14,8 +14,6 @@ This section should list any major frameworks/libraries used to my project.
 * [Entity Framework]
 * [SQL Server]
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ## 👷 Contributors
 
 * [vnmp11](https://github.com/vnmp11)
@@ -25,3 +23,5 @@ This section should list any major frameworks/libraries used to my project.
 
 * Gmail: phuongvu011101@gmail.com.
 * Project Link: [https://github.com/vnmp11/LibraryManagementSystem_MEANstack](https://github.com/vnmp11/LibraryManagementSystem_MEANstack)
+
+<p align="right">(<a href="#top">back to top</a>)</p>

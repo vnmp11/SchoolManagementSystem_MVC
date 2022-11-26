@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DatabaseAccess;
+using Magnum.FileSystem;
 
 namespace SchoolManagementSystem.Controllers
 {
@@ -54,11 +56,6 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
-            {
-                return RedirectToAction("Login", "Home");
-            }
-
             ViewBag.Designation_ID = new SelectList(db.DesignationTables, "DesignationID", "Title");
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName");
             return View();
@@ -68,8 +65,35 @@ namespace SchoolManagementSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        public ActionResult UploadFiles(HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+
+                    if (file != null)
+                    {
+                        string path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+
+                    }
+                    ViewBag.FileStatus = "File uploaded successfully.";
+                }
+                catch (Exception)
+                {
+
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+
+            }
+            return View("Index");
+        }
+
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(StaffTable staffTable)
+        public ActionResult Create([Bind(Include = "StaffID,User_ID,Name,Designation_ID,ContactNo,EmailAddress,Address,Qualification,Photo,Description,IsActive,Gender,BasicSalary,RegistrationDate, PhotoFile")] StaffTable staffTable, HttpPostedFileBase image)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
@@ -78,11 +102,24 @@ namespace SchoolManagementSystem.Controllers
 
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
             staffTable.User_ID = userId;
+            staffTable.Photo = "/Content/StaffPhoto/default.png";
 
+            string fileName = image.FileName;
+            string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+            image.SaveAs(_path);
+            staffTable.Photo = _path;
             if (ModelState.IsValid)
             {
+                //db.StaffTables.Add(staffTable);
+                //var folder = "/Content/StaffPhoto";
+                ////var file = string.Format("{0}.png", staffTable.StaffID);
+                //var path = staffTable.PhotoFile;
+                //UploadFiles(staffTable.PhotoFile);
+                //var pic = string.Format("{0}/{1}", folder, file);
+                //staffTable.Photo = pic;
                 db.StaffTables.Add(staffTable);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -118,7 +155,7 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(StaffTable staffTable)
+        public ActionResult Edit([Bind(Include = "StaffID,User_ID,Name,Designation_ID,ContactNo,EmailAddress,Address,Qualification,Photo,Description,IsActive,Gender,BasicSalary,RegistrationDate")] StaffTable staffTable)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {

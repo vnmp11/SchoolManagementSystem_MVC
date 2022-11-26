@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Magnum, Version=2.1.3.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magnum.2.1.3\lib\NET40\Magnum.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -157,6 +160,7 @@
     <Compile Include="Controllers\SubmissionFeeTablesController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
     <Compile Include="Controllers\UserTypeTablesController.cs" />
+    <Compile Include="FileHelper\UploadFile.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1862,6 +1866,7 @@
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\StaffPhoto\default.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2219,11 +2224,6 @@
     <Content Include="Views\StudentPromoteTables\Details.cshtml" />
     <Content Include="Views\StudentPromoteTables\Edit.cshtml" />
     <Content Include="Views\StudentPromoteTables\Index.cshtml" />
-    <Content Include="Views\StaffTables\Create.cshtml" />
-    <Content Include="Views\StaffTables\Delete.cshtml" />
-    <Content Include="Views\StaffTables\Details.cshtml" />
-    <Content Include="Views\StaffTables\Edit.cshtml" />
-    <Content Include="Views\StaffTables\Index.cshtml" />
     <Content Include="Views\StaffAttendanceTables\Create.cshtml" />
     <Content Include="Views\StaffAttendanceTables\Delete.cshtml" />
     <Content Include="Views\StaffAttendanceTables\Details.cshtml" />
@@ -2234,10 +2234,16 @@
     <Content Include="Views\SubmissionFeeTables\Details.cshtml" />
     <Content Include="Views\SubmissionFeeTables\Edit.cshtml" />
     <Content Include="Views\SubmissionFeeTables\Index.cshtml" />
+    <Content Include="Views\StaffTables\Create.cshtml" />
+    <Content Include="Views\StaffTables\Delete.cshtml" />
+    <Content Include="Views\StaffTables\Details.cshtml" />
+    <Content Include="Views\StaffTables\Edit.cshtml" />
+    <Content Include="Views\StaffTables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="UploadFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

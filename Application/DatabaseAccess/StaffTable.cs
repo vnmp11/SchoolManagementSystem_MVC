@@ -12,6 +12,8 @@ namespace DatabaseAccess
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
 
     public partial class StaffTable
     {
@@ -29,6 +31,7 @@ namespace DatabaseAccess
         public string Name { get; set; }
         public int Designation_ID { get; set; }
         public string ContactNo { get; set; }
+        [Required(ErrorMessage = "{0} Required Field!")]
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public string Qualification { get; set; }
@@ -40,7 +43,10 @@ namespace DatabaseAccess
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> RegistrationDate { get; set; }
-    
+        [DataType(DataType.Upload)]
+        [NotMapped]
+        public HttpPostedFileBase PhotoFile { get; set; }
+
         public virtual DesignationTable DesignationTable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeeLeavingTable> EmployeeLeavingTables { get; set; }

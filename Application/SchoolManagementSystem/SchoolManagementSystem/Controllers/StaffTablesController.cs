@@ -64,32 +64,6 @@ namespace SchoolManagementSystem.Controllers
         // POST: StaffTables/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        public ActionResult UploadFiles(HttpPostedFileBase file)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-
-
-                    if (file != null)
-                    {
-                        string path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
-
-                    }
-                    ViewBag.FileStatus = "File uploaded successfully.";
-                }
-                catch (Exception)
-                {
-
-                    ViewBag.FileStatus = "Error while file uploading.";
-                }
-
-            }
-            return View("Index");
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -104,19 +78,16 @@ namespace SchoolManagementSystem.Controllers
             staffTable.User_ID = userId;
             staffTable.Photo = "/Content/StaffPhoto/default.png";
 
-            string fileName = image.FileName;
-            string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
-            image.SaveAs(_path);
-            staffTable.Photo = _path;
+            if (image != null)
+            {
+                string fileName = image.FileName;
+                string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+                image.SaveAs(_path);
+                staffTable.Photo = "/Content/StaffPhoto/" + fileName;
+            }
+
             if (ModelState.IsValid)
             {
-                //db.StaffTables.Add(staffTable);
-                //var folder = "/Content/StaffPhoto";
-                ////var file = string.Format("{0}.png", staffTable.StaffID);
-                //var path = staffTable.PhotoFile;
-                //UploadFiles(staffTable.PhotoFile);
-                //var pic = string.Format("{0}/{1}", folder, file);
-                //staffTable.Photo = pic;
                 db.StaffTables.Add(staffTable);
                 db.SaveChanges();
 

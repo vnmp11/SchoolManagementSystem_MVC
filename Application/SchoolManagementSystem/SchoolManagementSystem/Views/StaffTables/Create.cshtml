@@ -70,10 +70,12 @@
 
             <div class="form-group row">
                 <div class="col-lg-5">
-                    @Html.LabelFor(model => model.PhotoFile,"Select Photo", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.PhotoFile,"Select Photo", htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col-md-10">
                         <input type="file" name="Image" id="Image" style="width: 100%;" />
                     </div>
+                     @*<img class="img-profile rounded-circle"
+                                             src="@Url.Content("~/Content/StaffPhoto/" + Model.Photo)" height="80" width="80">*@
 
                     @*@Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col">

@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -151,6 +152,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProgrameSessionTablesController.cs" />
     <Compile Include="Controllers\ProgrameTablesController.cs" />
+    <Compile Include="Controllers\ResumeController.cs" />
     <Compile Include="Controllers\SessionTablesController.cs" />
     <Compile Include="Controllers\StaffAttendanceTablesController.cs" />
     <Compile Include="Controllers\StaffTablesController.cs" />
@@ -163,7 +165,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Certification.cs" />
+    <Compile Include="Models\Education.cs" />
+    <Compile Include="Models\Language.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\WorkExperience.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IResumeRepository.cs" />
+    <Compile Include="Repository\ResumeRepository.cs" />
+    <Compile Include="ViewModels\CertificationVM.cs" />
+    <Compile Include="ViewModels\EducationVM.cs" />
+    <Compile Include="ViewModels\LanguageVM.cs" />
+    <Compile Include="ViewModels\PersonVM.cs" />
+    <Compile Include="ViewModels\SkillVM.cs" />
+    <Compile Include="ViewModels\WorkExperienceVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminTemplate\css\sb-admin-2.css" />
@@ -2238,11 +2254,23 @@
     <Content Include="Views\StaffTables\Details.cshtml" />
     <Content Include="Views\StaffTables\Edit.cshtml" />
     <Content Include="Views\StaffTables\Index.cshtml" />
+    <Content Include="Views\Shared\_MyCertificationCV.cshtml" />
+    <Content Include="Views\Shared\_MyCertifications.cshtml" />
+    <Content Include="Views\Shared\_MyEducation.cshtml" />
+    <Content Include="Views\Shared\_MyEducationCV.cshtml" />
+    <Content Include="Views\Shared\_MyLanguage.cshtml" />
+    <Content Include="Views\Shared\_MyLanguageCV.cshtml" />
+    <Content Include="Views\Shared\_MyPersonnalInfo.cshtml" />
+    <Content Include="Views\Shared\_MySkills.cshtml" />
+    <Content Include="Views\Shared\_MySkillsCV.cshtml" />
+    <Content Include="Views\Shared\_MyWorkExperience.cshtml" />
+    <Content Include="Views\Shared\_ResumeLayoutPage.cshtml" />
+    <Content Include="Views\Shared\_WorkExperienceCV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="FileHelper\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Resume\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

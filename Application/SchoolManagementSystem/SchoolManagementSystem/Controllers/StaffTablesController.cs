@@ -126,7 +126,7 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StaffID,User_ID,Name,Designation_ID,ContactNo,EmailAddress,Address,Qualification,Photo,Description,IsActive,Gender,BasicSalary,RegistrationDate")] StaffTable staffTable)
+        public ActionResult Edit([Bind(Include = "StaffID,User_ID,Name,Designation_ID,ContactNo,EmailAddress,Address,Qualification,Photo,Description,IsActive,Gender,BasicSalary,RegistrationDate")] StaffTable staffTable, HttpPostedFileBase image)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
@@ -135,6 +135,14 @@ namespace SchoolManagementSystem.Controllers
 
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
             staffTable.User_ID = userId;
+
+            if (image != null)
+            {
+                string fileName = image.FileName;
+                string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+                image.SaveAs(_path);
+                staffTable.Photo = "/Content/StaffPhoto/" + fileName;
+            }
 
             if (ModelState.IsValid)
             {

@@ -31,7 +31,6 @@ namespace DatabaseAccess
         public string Name { get; set; }
         public int Designation_ID { get; set; }
         public string ContactNo { get; set; }
-        [Required(ErrorMessage = "{0} Required Field!")]
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public string Qualification { get; set; }

@@ -5,12 +5,13 @@
 }
 
 <h2>Index</h2>
+
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">All Annual Fee</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Users</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -18,29 +19,24 @@
                 <thead>
                     <tr>
                         <th>
-                            Name
+                            @Html.DisplayNameFor(model => model.Name)
                         </th>
                         <th>
-                            FatherName
-                        </th>
-                        <th>
-                            DOB
+                            @Html.DisplayNameFor(model => model.DateofBirth)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Gender)
                         </th>
                         <th>
-                            Contact No
+                            @Html.DisplayNameFor(model => model.ContactNo)
                         </th>
                         <th>
-                            Email 
+                            @Html.DisplayNameFor(model => model.Photo)
                         </th>
                         <th>
-                            Programe 
+                            Class
                         </th>
-                        <th>
-                            Session
-                        </th>
+                     
                         <th>
                             Action
                         </th>
@@ -54,9 +50,6 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.FatherName)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.DateofBirth)
                             </td>
                             <td>
@@ -65,17 +58,17 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.ContactNo)
                             </td>
-
                             <td>
-                                @Html.DisplayFor(modelItem => item.EmailAddress)
+                                @if (!string.IsNullOrEmpty(item.Photo))
+                                {
+                                    <img class="img-profile rounded-circle"
+                                         src="@Url.Content(item.Photo)" height="80" width="80">
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassTable.Name)
                             </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ProgrameTable.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SessionTable.Name)
-                            </td>
                             <td class="btn-group">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.StudentID }, new { @class = "btn btn-primary" })
                                 @Html.ActionLink("Details", "Details", new { id = item.StudentID }, new { @class = "btn btn-info" })
@@ -83,8 +76,8 @@
                             </td>
                         </tr>
                     }
-                    </tbody>
+                </tbody>
             </table>
-</div>
+        </div>
 </div>
 </div>

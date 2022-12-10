@@ -6,28 +6,27 @@ using SchoolManagementSystem.Models;
 using System.IO;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
-using AutoMapper.QueryableExtensions;
 using SchoolManagementSystem.ViewModels;
 using SchoolManagementSystem.Repository;
 using DatabaseAccess;
 
-namespace RecruitmentSystemMgt.Repository
+namespace SchoolManagementSystem.Repository
 {
     public class ResumeRepository : IResumeRepository
     {
         //Db Context
         private readonly SchoolMgtDbEntities _dbContext = new SchoolMgtDbEntities();
 
-        public bool AddCertification(Certification certification, int idPer)
+        public bool AddCertification(EmployeeCertificationTable certification, int idPer)
         {
             try
             {
                 int countRecords = 0;
-                Person personEntity = _dbContext.People.Find(idPer);
+                EmployeeResumeTable personEntity = _dbContext.EmployeeResumeTables.Where(p => p.EmployeeID == idPer).FirstOrDefault();
 
                 if (personEntity != null && certification != null)
                 {
-                    personEntity.Certification.Add(certification);
+                    //personEntity.EmployeeCertificationTables.Add(certification);
                     countRecords = _dbContext.SaveChanges();
                 }
 
@@ -41,29 +40,29 @@ namespace RecruitmentSystemMgt.Repository
 
         }
 
-        public bool AddLanguage(Language language, int idPer)
+        public bool AddLanguage(EmployeeLanguageTable language, int idPer)
         {
             int countRecords = 0;
-            Person personEntity = _dbContext.People.Find(idPer);
+            EmployeeResumeTable personEntity = _dbContext.EmployeeResumeTables.Where(p => p.EmployeeID == idPer).FirstOrDefault();
 
             if (personEntity != null && language != null)
             {
-                personEntity.Language.Add(language);
+                personEntity.EmployeeLanguageTables.Add(language);
                 countRecords = _dbContext.SaveChanges();
             }
 
             return countRecords > 0 ? true : false;
         }
 
-        public string AddOrUpdateEducation(Education education, int idPer)
+        public string AddOrUpdateEducation(EmployeeEducationTable education, int idPer)
         {
             string msg = string.Empty;
 
-            Person personEntity = _dbContext.People.Find(idPer);
+            EmployeeResumeTable personEntity = _dbContext.EmployeeResumeTables.Where(p => p.EmployeeID == idPer).FirstOrDefault();
 
             if (personEntity != null)
             {
-                if (education.IDEdu > 0)
+                if (education.EmployeeEducationID > 0)
                 {
                     //we will update education entity
                     _dbContext.Entry(education).State = EntityState.Modified;
@@ -74,7 +73,7 @@ namespace RecruitmentSystemMgt.Repository
                 else
                 {
                     // we will add new education entity
-                    personEntity.Education.Add(education);
+                    personEntity.EmployeeEducationTables.Add(education);
                     _dbContext.SaveChanges();
 
                     msg = "Education entity has been Added successfully";
@@ -84,15 +83,15 @@ namespace RecruitmentSystemMgt.Repository
             return msg;
         }
 
-        public string AddOrUpdateExperience(WorkExperience workExperience, int idPer)
+        public string AddOrUpdateExperience(EmployeeWorkExperienceTable workExperience, int idPer)
         {
             string msg = string.Empty;
 
-            Person personEntity = _dbContext.People.Find(idPer);
+            EmployeeResumeTable personEntity = _dbContext.EmployeeResumeTables.Where(p => p.EmployeeID == idPer).FirstOrDefault();
 
             if (personEntity != null)
             {
-                if (workExperience.IDExp > 0)
+                if (workExperience.EmployeeWorkExperienceID > 0)
                 {
                     //we will update work experience entity
                     _dbContext.Entry(workExperience).State = EntityState.Modified;
@@ -103,7 +102,7 @@ namespace RecruitmentSystemMgt.Repository
                 else
                 {
                     // we will add new work experience entity
-                    personEntity.WorkExperience.Add(workExperience);
+                    personEntity.EmployeeWorkExperienceTables.Add(workExperience);
                     _dbContext.SaveChanges();
 
                     msg = "Work Experience entity has been Added successfully";
@@ -113,7 +112,7 @@ namespace RecruitmentSystemMgt.Repository
             return msg;
         }
 
-        public bool AddPersonnalInformation(Person person, HttpPostedFileBase file)
+        public bool AddPersonnalInformation(EmployeeResumeTable person, HttpPostedFileBase file)
         {
             try
             {
@@ -126,7 +125,7 @@ namespace RecruitmentSystemMgt.Repository
                         person.Profil = ConvertToBytes(file);
                     }
 
-                    _dbContext.People.Add(person);
+                    _dbContext.EmployeeResumeTables.Add(person);
                     nbRecords = _dbContext.SaveChanges();
                 }
 
@@ -153,14 +152,14 @@ namespace RecruitmentSystemMgt.Repository
 
         }
 
-        public bool AddSkill(Skill skill, int idPer)
+        public bool AddSkill(EmployeeSkillTable skill, int idPer)
         {
             int countRecords = 0;
-            Person personEntity = _dbContext.People.Find(idPer);
+            EmployeeResumeTable personEntity = _dbContext.EmployeeResumeTables.Where(p => p.EmployeeID == idPer).FirstOrDefault();
 
             if (personEntity != null && skill != null)
             {
-                personEntity.Skill.Add(skill);
+                personEntity.EmployeeSkillTables.Add(skill);
                 countRecords = _dbContext.SaveChanges();
             }
 
@@ -168,47 +167,47 @@ namespace RecruitmentSystemMgt.Repository
 
         }
 
-        public IQueryable<Certification> GetCertificationsById(int idPer)
+        public IQueryable<EmployeeCertificationTable> GetCertificationsById(int idPer)
         {
-            var certificationList = _dbContext.Certification.Where(w => w.IdPers == idPer);
+            var certificationList = _dbContext.EmployeeCertificationTables.Where(w => w.EmployeeResumeID == idPer);
             return certificationList;
         }
 
-        public IQueryable<Education> GetEducationById(int idPer)
+        public IQueryable<EmployeeEducationTable> GetEducationById(int idPer)
         {
-            var educationList = _dbContext.Education.Where(e => e.IdPers == idPer);
+            var educationList = _dbContext.EmployeeEducationTables.Where(e => e.EmployeeResumeID == idPer);
             return educationList;
         }
 
-        public int GetIdPerson(string firstName, string lastName)
+        public int GetIdPerson(int idPer)
         {
-            int idSelected = _dbContext.People.Where(p => p.FirstName.ToLower().Equals(firstName.ToLower()))
-                                              .Where(p => p.LastName.ToLower().Equals(lastName.ToLower()))
-                                              .Select(p => p.IDPers).FirstOrDefault();
+            int employeeResumeID = _dbContext.EmployeeResumeTables.Where(p => p.EmployeeID == idPer)
+                                              .Select(p => p.EmployeeResumeID).FirstOrDefault();
 
-            return idSelected;
+            return employeeResumeID;
         }
 
-        public IQueryable<Language> GetLanguageById(int idPer)
+        public IQueryable<EmployeeLanguageTable> GetLanguageById(int idPer)
         {
-            var languageList = _dbContext.Languages.Where(w => w.IdPers == idPer);
+            var languageList = _dbContext.EmployeeLanguageTables.Where(w => w.EmployeeResumeID == idPer);
             return languageList;
         }
 
-        public Person GetPersonnalInfo(int idPer)
+        public EmployeeResumeTable GetPersonnalInfo(int idPer)
         {
-            return _dbContext.People.Find(idPer);
+            return _dbContext.EmployeeResumeTables.Find(idPer);
+
         }
 
-        public IQueryable<Skill> GetSkillsById(int idPer)
+        public IQueryable<EmployeeSkillTable> GetSkillsById(int idPer)
         {
-            var skillsList = _dbContext.Skills.Where(w => w.IdPers == idPer);
+            var skillsList = _dbContext.EmployeeSkillTables.Where(w => w.EmployeeResumeID == idPer);
             return skillsList;
         }
 
-        public IQueryable<WorkExperience> GetWorkExperienceById(int idPer)
+        public IQueryable<EmployeeWorkExperienceTable> GetWorkExperienceById(int idPer)
         {
-            var workExperienceList = _dbContext.WorkExperiences.Where(w => w.IDPers == idPer);
+            var workExperienceList = _dbContext.EmployeeWorkExperienceTables.Where(w => w.EmployeeResumeID == idPer);
             return workExperienceList;
         }
 
@@ -223,4 +222,3 @@ namespace RecruitmentSystemMgt.Repository
     }
 
 }
- 

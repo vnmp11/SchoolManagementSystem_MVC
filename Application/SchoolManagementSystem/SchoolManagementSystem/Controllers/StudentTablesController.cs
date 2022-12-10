@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -22,7 +23,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var studentTables = db.StudentTables.Include(s => s.ProgrameTable).Include(s => s.SessionTable).Include(s => s.UserTable);
+            var studentTables = db.StudentTables.Include(s => s.ClassTable).Include(s => s.ProgrameTable).Include(s => s.SessionTable).Include(s => s.UserTable);
             return View(studentTables.ToList());
         }
 
@@ -54,6 +55,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
+            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name");
             ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name");
             ViewBag.Session_ID = new SelectList(db.SessionTables, "SessionID", "Name");
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName");
@@ -65,7 +67,7 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( StudentTable studentTable)
+        public ActionResult Create([Bind(Include = "StudentID,Session_ID,Programe_ID,User_ID,ClassID,Name,FatherName,DateofBirth,Gender,ContactNo,Photo,AddmissionDate,PreviousSchool,PreviousPercentage,EmailAddress,Address,Nationality")] StudentTable studentTable, HttpPostedFileBase image)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
@@ -74,14 +76,25 @@ namespace SchoolManagementSystem.Controllers
 
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
             studentTable.User_ID = userId;
+            studentTable.Photo = "/Content/StaffPhoto/default.png";
+
+            if (image != null)
+            {
+                string fileName = image.FileName;
+                string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+                image.SaveAs(_path);
+                studentTable.Photo = "/Content/StaffPhoto/" + fileName;
+            }
 
             if (ModelState.IsValid)
             {
+
                 db.StudentTables.Add(studentTable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name", studentTable.ClassID);
             ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name", studentTable.Programe_ID);
             ViewBag.Session_ID = new SelectList(db.SessionTables, "SessionID", "Name", studentTable.Session_ID);
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", studentTable.User_ID);
@@ -105,6 +118,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name", studentTable.ClassID);
             ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name", studentTable.Programe_ID);
             ViewBag.Session_ID = new SelectList(db.SessionTables, "SessionID", "Name", studentTable.Session_ID);
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", studentTable.User_ID);
@@ -116,7 +130,7 @@ namespace SchoolManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(StudentTable studentTable)
+        public ActionResult Edit([Bind(Include = "StudentID,Session_ID,Programe_ID,User_ID,ClassID,Name,FatherName,DateofBirth,Gender,ContactNo,Photo,AddmissionDate,PreviousSchool,PreviousPercentage,EmailAddress,Address,Nationality")] StudentTable studentTable, HttpPostedFileBase image)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
@@ -126,12 +140,23 @@ namespace SchoolManagementSystem.Controllers
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
             studentTable.User_ID = userId;
 
+            if (image != null)
+            {
+                string fileName = image.FileName;
+                string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+                image.SaveAs(_path);
+                studentTable.Photo = "/Content/StaffPhoto/" + fileName;
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(studentTable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+
+            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name", studentTable.ClassID);
             ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name", studentTable.Programe_ID);
             ViewBag.Session_ID = new SelectList(db.SessionTables, "SessionID", "Name", studentTable.Session_ID);
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", studentTable.User_ID);
@@ -177,5 +202,7 @@ namespace SchoolManagementSystem.Controllers
             }
             base.Dispose(disposing);
         }
+
+      
     }
 }

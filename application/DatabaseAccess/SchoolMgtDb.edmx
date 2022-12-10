@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SchoolMgtDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AnnualTable">
           <Key>
             <PropertyRef Name="AnnualID" />
@@ -32,7 +32,7 @@
           <Key>
             <PropertyRef Name="ClassSubjectID" />
           </Key>
-          <Property Name="ClassSubjectID" Type="int" Nullable="false" />
+          <Property Name="ClassSubjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
@@ -42,9 +42,9 @@
           <Key>
             <PropertyRef Name="ClassID" />
           </Key>
-          <Property Name="ClassID" Type="int" Nullable="false" />
+          <Property Name="ClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="DesignationTable">
           <Key>
@@ -175,7 +175,7 @@
           <Key>
             <PropertyRef Name="MarkID" />
           </Key>
-          <Property Name="MarkID" Type="int" Nullable="false" />
+          <Property Name="MarkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
           <Property Name="ExamID" Type="int" Nullable="false" />
           <Property Name="StudentID" Type="int" Nullable="false" />
@@ -263,7 +263,7 @@
           <Key>
             <PropertyRef Name="SchoolLeavingID" />
           </Key>
-          <Property Name="SchoolLeavingID" Type="int" Nullable="false" />
+          <Property Name="SchoolLeavingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="StudentID" Type="int" />
           <Property Name="ClassID" Type="int" />
@@ -317,7 +317,7 @@
           <Key>
             <PropertyRef Name="StaffID" />
           </Key>
-          <Property Name="StaffID" Type="int" Nullable="false" />
+          <Property Name="StaffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Designation_ID" Type="int" Nullable="false" />
@@ -336,7 +336,7 @@
           <Key>
             <PropertyRef Name="StudentPromoteID" />
           </Key>
-          <Property Name="StudentPromoteID" Type="int" Nullable="false" />
+          <Property Name="StudentPromoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentID" Type="int" />
           <Property Name="ClassID" Type="int" />
           <Property Name="ProgrameSessionID" Type="int" />
@@ -1339,7 +1339,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ModelStoreContainer">
+        <EntityContainer Name="SchoolMgtDbModelStoreContainer">
           <EntitySet Name="AnnualTable" EntityType="Self.AnnualTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AttendanceTable" EntityType="Self.AttendanceTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassSubjectTable" EntityType="Self.ClassSubjectTable" Schema="dbo" store:Type="Tables" />
@@ -1681,7 +1681,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SchoolMgtDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="AnnualTable">
           <Key>
             <PropertyRef Name="AnnualID" />
@@ -1715,7 +1715,7 @@
           <Key>
             <PropertyRef Name="ClassSubjectID" />
           </Key>
-          <Property Name="ClassSubjectID" Type="Int32" Nullable="false" />
+          <Property Name="ClassSubjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClassID" Type="Int32" Nullable="false" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -1728,9 +1728,9 @@
           <Key>
             <PropertyRef Name="ClassID" />
           </Key>
-          <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AttendanceTables" Relationship="Self.FK_AttendanceTable_ClassTable" FromRole="ClassTable" ToRole="AttendanceTable" />
           <NavigationProperty Name="ClassSubjectTables" Relationship="Self.FK_ClassSubjectTable_ClassTable" FromRole="ClassTable" ToRole="ClassSubjectTable" />
           <NavigationProperty Name="SchoolLeavingTables" Relationship="Self.FK_SchoolLeavingTable_ClassTable" FromRole="ClassTable" ToRole="SchoolLeavingTable" />
@@ -1892,7 +1892,7 @@
           <Key>
             <PropertyRef Name="MarkID" />
           </Key>
-          <Property Name="MarkID" Type="Int32" Nullable="false" />
+          <Property Name="MarkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <Property Name="ExamID" Type="Int32" Nullable="false" />
           <Property Name="StudentID" Type="Int32" Nullable="false" />
@@ -2008,7 +2008,7 @@
           <Key>
             <PropertyRef Name="SchoolLeavingID" />
           </Key>
-          <Property Name="SchoolLeavingID" Type="Int32" Nullable="false" />
+          <Property Name="SchoolLeavingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="StudentID" Type="Int32" />
           <Property Name="ClassID" Type="Int32" />
@@ -2081,7 +2081,7 @@
           <Key>
             <PropertyRef Name="StaffID" />
           </Key>
-          <Property Name="StaffID" Type="Int32" Nullable="false" />
+          <Property Name="StaffID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Designation_ID" Type="Int32" Nullable="false" />
@@ -2106,7 +2106,7 @@
           <Key>
             <PropertyRef Name="StudentPromoteID" />
           </Key>
-          <Property Name="StudentPromoteID" Type="Int32" Nullable="false" />
+          <Property Name="StudentPromoteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StudentID" Type="Int32" />
           <Property Name="ClassID" Type="Int32" />
           <Property Name="ProgrameSessionID" Type="Int32" />
@@ -3509,9 +3509,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="SchoolMgtDbEntities">
+        <EntityContainerMapping StorageEntityContainer="SchoolMgtDbModelStoreContainer" CdmEntityContainer="SchoolMgtDbEntities">
           <EntitySetMapping Name="AnnualTables">
-            <EntityTypeMapping TypeName="Model.AnnualTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.AnnualTable">
               <MappingFragment StoreEntitySet="AnnualTable">
                 <ScalarProperty Name="AnnualID" ColumnName="AnnualID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3524,7 +3524,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AttendanceTables">
-            <EntityTypeMapping TypeName="Model.AttendanceTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.AttendanceTable">
               <MappingFragment StoreEntitySet="AttendanceTable">
                 <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
                 <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
@@ -3536,7 +3536,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClassSubjectTables">
-            <EntityTypeMapping TypeName="Model.ClassSubjectTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ClassSubjectTable">
               <MappingFragment StoreEntitySet="ClassSubjectTable">
                 <ScalarProperty Name="ClassSubjectID" ColumnName="ClassSubjectID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
@@ -3547,7 +3547,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClassTables">
-            <EntityTypeMapping TypeName="Model.ClassTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ClassTable">
               <MappingFragment StoreEntitySet="ClassTable">
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -3556,7 +3556,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DesignationTables">
-            <EntityTypeMapping TypeName="Model.DesignationTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.DesignationTable">
               <MappingFragment StoreEntitySet="DesignationTable">
                 <ScalarProperty Name="DesignationID" ColumnName="DesignationID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3566,7 +3566,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeCertificationTables">
-            <EntityTypeMapping TypeName="Model.EmployeeCertificationTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeCertificationTable">
               <MappingFragment StoreEntitySet="EmployeeCertificationTable">
                 <ScalarProperty Name="EmployeeCertificationID" ColumnName="EmployeeCertificationID" />
                 <ScalarProperty Name="CertificationName" ColumnName="CertificationName" />
@@ -3579,7 +3579,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeEducationTables">
-            <EntityTypeMapping TypeName="Model.EmployeeEducationTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeEducationTable">
               <MappingFragment StoreEntitySet="EmployeeEducationTable">
                 <ScalarProperty Name="EmployeeEducationID" ColumnName="EmployeeEducationID" />
                 <ScalarProperty Name="InstituteUniversity" ColumnName="InstituteUniversity" />
@@ -3595,7 +3595,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeLanguageTables">
-            <EntityTypeMapping TypeName="Model.EmployeeLanguageTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeLanguageTable">
               <MappingFragment StoreEntitySet="EmployeeLanguageTable">
                 <ScalarProperty Name="EmployeeLanguageID" ColumnName="EmployeeLanguageID" />
                 <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
@@ -3606,7 +3606,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeLeavingTables">
-            <EntityTypeMapping TypeName="Model.EmployeeLeavingTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeLeavingTable">
               <MappingFragment StoreEntitySet="EmployeeLeavingTable">
                 <ScalarProperty Name="EmployeeLeavingID" ColumnName="EmployeeLeavingID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -3619,7 +3619,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeResumeTables">
-            <EntityTypeMapping TypeName="Model.EmployeeResumeTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeResumeTable">
               <MappingFragment StoreEntitySet="EmployeeResumeTable">
                 <ScalarProperty Name="EmployeeResumeID" ColumnName="EmployeeResumeID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -3641,7 +3641,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeSalaryTables">
-            <EntityTypeMapping TypeName="Model.EmployeeSalaryTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeSalaryTable">
               <MappingFragment StoreEntitySet="EmployeeSalaryTable">
                 <ScalarProperty Name="EmployeeSalaryID" ColumnName="EmployeeSalaryID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -3654,7 +3654,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeSkillTables">
-            <EntityTypeMapping TypeName="Model.EmployeeSkillTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeSkillTable">
               <MappingFragment StoreEntitySet="EmployeeSkillTable">
                 <ScalarProperty Name="EmployeeSkillID" ColumnName="EmployeeSkillID" />
                 <ScalarProperty Name="SkillName" ColumnName="SkillName" />
@@ -3664,7 +3664,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeWorkExperienceTables">
-            <EntityTypeMapping TypeName="Model.EmployeeWorkExperienceTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeWorkExperienceTable">
               <MappingFragment StoreEntitySet="EmployeeWorkExperienceTable">
                 <ScalarProperty Name="EmployeeWorkExperienceID" ColumnName="EmployeeWorkExperienceID" />
                 <ScalarProperty Name="Company" ColumnName="Company" />
@@ -3679,7 +3679,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EventTables">
-            <EntityTypeMapping TypeName="Model.EventTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.EventTable">
               <MappingFragment StoreEntitySet="EventTable">
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="EventTitle" ColumnName="EventTitle" />
@@ -3691,7 +3691,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExamMarkTables">
-            <EntityTypeMapping TypeName="Model.ExamMarkTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ExamMarkTable">
               <MappingFragment StoreEntitySet="ExamMarkTable">
                 <ScalarProperty Name="MarkID" ColumnName="MarkID" />
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
@@ -3704,7 +3704,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExamSettingTables">
-            <EntityTypeMapping TypeName="Model.ExamSettingTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ExamSettingTable">
               <MappingFragment StoreEntitySet="ExamSettingTable">
                 <ScalarProperty Name="ExamSettingID" ColumnName="ExamSettingID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3716,7 +3716,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExamTables">
-            <EntityTypeMapping TypeName="Model.ExamTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ExamTable">
               <MappingFragment StoreEntitySet="ExamTable">
                 <ScalarProperty Name="ExamID" ColumnName="ExamID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3728,7 +3728,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpensesTables">
-            <EntityTypeMapping TypeName="Model.ExpensesTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ExpensesTable">
               <MappingFragment StoreEntitySet="ExpensesTable">
                 <ScalarProperty Name="ExpensesID" ColumnName="ExpensesID" />
                 <ScalarProperty Name="ExpenseType_ID" ColumnName="ExpenseType_ID" />
@@ -3742,7 +3742,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ExpensesTypeTables">
-            <EntityTypeMapping TypeName="Model.ExpensesTypeTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ExpensesTypeTable">
               <MappingFragment StoreEntitySet="ExpensesTypeTable">
                 <ScalarProperty Name="ExpenseTypeID" ColumnName="ExpenseTypeID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3752,7 +3752,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProgrameSessionTables">
-            <EntityTypeMapping TypeName="Model.ProgrameSessionTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ProgrameSessionTable">
               <MappingFragment StoreEntitySet="ProgrameSessionTable">
                 <ScalarProperty Name="ProgrameSessionID" ColumnName="ProgrameSessionID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3765,7 +3765,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProgrameTables">
-            <EntityTypeMapping TypeName="Model.ProgrameTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.ProgrameTable">
               <MappingFragment StoreEntitySet="ProgrameTable">
                 <ScalarProperty Name="ProgrameID" ColumnName="ProgrameID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3776,7 +3776,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RoomTables">
-            <EntityTypeMapping TypeName="Model.RoomTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.RoomTable">
               <MappingFragment StoreEntitySet="RoomTable">
                 <ScalarProperty Name="RoomID" ColumnName="RoomID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3787,7 +3787,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SchoolLeavingTables">
-            <EntityTypeMapping TypeName="Model.SchoolLeavingTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.SchoolLeavingTable">
               <MappingFragment StoreEntitySet="SchoolLeavingTable">
                 <ScalarProperty Name="SchoolLeavingID" ColumnName="SchoolLeavingID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -3801,7 +3801,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SectionTables">
-            <EntityTypeMapping TypeName="Model.SectionTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.SectionTable">
               <MappingFragment StoreEntitySet="SectionTable">
                 <ScalarProperty Name="SectionID" ColumnName="SectionID" />
                 <ScalarProperty Name="SectionName" ColumnName="SectionName" />
@@ -3810,7 +3810,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SessionProgrameSubjectSettingTables">
-            <EntityTypeMapping TypeName="Model.SessionProgrameSubjectSettingTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.SessionProgrameSubjectSettingTable">
               <MappingFragment StoreEntitySet="SessionProgrameSubjectSettingTable">
                 <ScalarProperty Name="SessionProgrameSubjectSettingID" ColumnName="SessionProgrameSubjectSettingID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3824,7 +3824,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SessionTables">
-            <EntityTypeMapping TypeName="Model.SessionTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.SessionTable">
               <MappingFragment StoreEntitySet="SessionTable">
                 <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3835,7 +3835,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StaffAttendanceTables">
-            <EntityTypeMapping TypeName="Model.StaffAttendanceTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.StaffAttendanceTable">
               <MappingFragment StoreEntitySet="StaffAttendanceTable">
                 <ScalarProperty Name="StaffAttendanceID" ColumnName="StaffAttendanceID" />
                 <ScalarProperty Name="Staff_ID" ColumnName="Staff_ID" />
@@ -3846,7 +3846,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StaffTables">
-            <EntityTypeMapping TypeName="Model.StaffTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.StaffTable">
               <MappingFragment StoreEntitySet="StaffTable">
                 <ScalarProperty Name="StaffID" ColumnName="StaffID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3866,7 +3866,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StudentPromoteTables">
-            <EntityTypeMapping TypeName="Model.StudentPromoteTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.StudentPromoteTable">
               <MappingFragment StoreEntitySet="StudentPromoteTable">
                 <ScalarProperty Name="StudentPromoteID" ColumnName="StudentPromoteID" />
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
@@ -3881,7 +3881,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StudentTables">
-            <EntityTypeMapping TypeName="Model.StudentTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.StudentTable">
               <MappingFragment StoreEntitySet="StudentTable">
                 <ScalarProperty Name="StudentID" ColumnName="StudentID" />
                 <ScalarProperty Name="Session_ID" ColumnName="Session_ID" />
@@ -3904,7 +3904,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SubjectTables">
-            <EntityTypeMapping TypeName="Model.SubjectTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.SubjectTable">
               <MappingFragment StoreEntitySet="SubjectTable">
                 <ScalarProperty Name="SubjectID" ColumnName="SubjectID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3916,7 +3916,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SubmissionFeeTables">
-            <EntityTypeMapping TypeName="Model.SubmissionFeeTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.SubmissionFeeTable">
               <MappingFragment StoreEntitySet="SubmissionFeeTable">
                 <ScalarProperty Name="SubmissionFeeID" ColumnName="SubmissionFeeID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3931,7 +3931,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Model.sysdiagram">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -3942,7 +3942,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TimeTblTables">
-            <EntityTypeMapping TypeName="Model.TimeTblTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.TimeTblTable">
               <MappingFragment StoreEntitySet="TimeTblTable">
                 <ScalarProperty Name="TimeTableID" ColumnName="TimeTableID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
@@ -3958,7 +3958,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTables">
-            <EntityTypeMapping TypeName="Model.UserTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.UserTable">
               <MappingFragment StoreEntitySet="UserTable">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserType_ID" ColumnName="UserType_ID" />
@@ -3972,7 +3972,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTypeTables">
-            <EntityTypeMapping TypeName="Model.UserTypeTable">
+            <EntityTypeMapping TypeName="SchoolMgtDbModel.UserTypeTable">
               <MappingFragment StoreEntitySet="UserTypeTable">
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />

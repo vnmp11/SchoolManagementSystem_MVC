@@ -14,6 +14,7 @@ namespace DatabaseAccess
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Web;
+    using System.Web.Mvc;
 
     public partial class StudentTable
     {
@@ -48,6 +49,7 @@ namespace DatabaseAccess
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public string Nationality { get; set; }
+        [DataType(DataType.Upload)]
         [NotMapped]
         public HttpPostedFileBase PhotoFile { get; set; }
 
@@ -66,4 +68,5 @@ namespace DatabaseAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubmissionFeeTable> SubmissionFeeTables { get; set; }
     }
+
 }

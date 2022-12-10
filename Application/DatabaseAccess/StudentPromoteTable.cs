@@ -23,8 +23,8 @@ namespace DatabaseAccess
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> PromoteDate { get; set; }
         public Nullable<int> AnnualFee { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<bool> IsSubmit { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsSubmit { get; set; }
         public Nullable<int> SectionID { get; set; }
     
         public virtual ClassTable ClassTable { get; set; }

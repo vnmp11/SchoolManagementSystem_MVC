@@ -1,4 +1,6 @@
-﻿using DatabaseAccess;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using DatabaseAccess;
 using Magnum;
 using SchoolManagementSystem.Models;
 using SchoolManagementSystem.Repository;
@@ -25,10 +27,16 @@ namespace SchoolManagementSystem.Controllers
             return View();
         }
 
-        public ActionResult CheckCV()
+        public ActionResult CheckCV(int? id)
         {
             var employeeid = 0;
-            int.TryParse(Convert.ToString(Session["EmployeeID"]), out employeeid);
+            if (id == null || id == 0)
+            {
+                int.TryParse(Convert.ToString(Session["EmployeeResumeID"]), out employeeid);
+            }else
+            {
+                employeeid = Convert.ToInt32(id);
+            }    
             using (SchoolMgtDbEntities db = new SchoolMgtDbEntities())
             {
                 var people = db.EmployeeResumeTables.Where(p => p.EmployeeID == employeeid);
@@ -93,7 +101,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult AddPersonnalInformtion(PersonVM person)
         {
             var employeeid = 0;
-            int.TryParse(Convert.ToString(Session["EmployeeID"]), out employeeid);
+            int.TryParse(Convert.ToString(Session["EmployeeResumeID"]), out employeeid);
 
             person.DOB = DateTime.Now;
 
@@ -102,15 +110,15 @@ namespace SchoolManagementSystem.Controllers
                 //Creating Mapping
                 Mapper.Initialize(cfg => cfg.CreateMap<PersonVM, Person>());
 
-                Person personEntity = Mapper.Map<Person>(person);
-                personEntity.EmpID = employeeid;
+                EmployeeResumeTable personEntity = Mapper.Map<EmployeeResumeTable>(person);
+                personEntity.EmployeeID = employeeid;
                 HttpPostedFileBase file = Request.Files["ImageProfil"];
 
                 bool result = _resumeRepository.AddPersonnalInformation(personEntity, file);
 
                 if (result)
                 {
-                    Session["IdSelected"] = _resumeRepository.GetIdPerson(person.FirstName, person.LastName);
+                    Session["EmployeeResumeID"] = _resumeRepository.GetIdPerson(employeeid);
                     return RedirectToAction("Education");
                 }
                 else
@@ -146,9 +154,9 @@ namespace SchoolManagementSystem.Controllers
                     //Creating Mapping
                     Mapper.Reset();
                     Mapper.Initialize(cfg => cfg.CreateMap<EducationVM, Education>());
-                    Education educationEntity = Mapper.Map<Education>(education);
+                    EmployeeEducationTable educationEntity = Mapper.Map<EmployeeEducationTable>(education);
 
-                    int idPer = (int)Session["IdSelected"];
+                    int idPer = (int)Session["EmployeeResumeID"];
 
                     msg = _resumeRepository.AddOrUpdateEducation(educationEntity, idPer);
 
@@ -199,9 +207,9 @@ namespace SchoolManagementSystem.Controllers
                 //Creating Mapping
                 Mapper.Reset();
                 Mapper.Initialize(cfg => cfg.CreateMap<WorkExperienceVM, WorkExperience>());
-                WorkExperience workExperienceEntity = Mapper.Map<WorkExperience>(workExperience);
+                EmployeeWorkExperienceTable workExperienceEntity = Mapper.Map<EmployeeWorkExperienceTable>(workExperience);
 
-                int idPer = (int)Session["IdSelected"];
+                int idPer = (int)Session["EmployeeResumeID"];
 
 
                 msg = _resumeRepository.AddOrUpdateExperience(workExperienceEntity, idPer);
@@ -228,13 +236,13 @@ namespace SchoolManagementSystem.Controllers
 
         public ActionResult AddSkill(SkillVM skill)
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
             string msg = string.Empty;
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<SkillsVM, Skill>());
-            Skill skillEntity = Mapper.Map<Skill>(skill);
+            Mapper.Initialize(cfg => cfg.CreateMap<SkillVM, Skill>());
+            EmployeeSkillTable skillEntity = Mapper.Map<EmployeeSkillTable>(skill);
 
             if (_resumeRepository.AddSkill(skillEntity, idPer))
             {
@@ -264,13 +272,13 @@ namespace SchoolManagementSystem.Controllers
 
         public ActionResult AddCertification(CertificationVM certification)
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
             string msg = string.Empty;
 
             //Creating Mapping
             Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap<CertificationVM, Certification>());
-            Certification certificationEntity = Mapper.Map<Certification>(certification);
+            EmployeeCertificationTable certificationEntity = Mapper.Map<EmployeeCertificationTable>(certification);
 
             if (_resumeRepository.AddCertification(certificationEntity, idPer))
             {
@@ -302,13 +310,13 @@ namespace SchoolManagementSystem.Controllers
 
         public ActionResult AddLanguage(LanguageVM language)
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
             string msg = string.Empty;
 
             //Creating Mapping
             Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap<LanguageVM, Language>());
-            Language languageEntity = Mapper.Map<Language>(language);
+            EmployeeLanguageTable languageEntity = Mapper.Map<EmployeeLanguageTable>(language);
 
             if (_resumeRepository.AddLanguage(languageEntity, idPer))
             {
@@ -326,24 +334,20 @@ namespace SchoolManagementSystem.Controllers
         {
             using (SchoolMgtDbEntities db = new SchoolMgtDbEntities())
             {
-                var person = db.People.Where(p => p.EmpID == id).FirstOrDefault();
-                id = person.IDPers;
+                var person = db.EmployeeResumeTables.Where(p => p.EmployeeID == id).FirstOrDefault();
+                Session["EmployeeResumeID"] = person.EmployeeID;
+                return View();
             }
-
-
-
-            Session["IdSelected"] = id;
-            return View();
         }
 
         public PartialViewResult GetPersonnalInfoPartial()
         {
-            int idPer = (int)Session["IdSelected"];
-            Person person = _resumeRepository.GetPersonnalInfo(idPer);
+            int idPer = (int)Session["EmployeeResumeID"];
+            EmployeeResumeTable person = _resumeRepository.GetPersonnalInfo(idPer);
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Person, PersonVM>());
+            Mapper.Initialize(cfg => cfg.CreateMap<EmployeeResumeTable, PersonVM>());
             PersonVM personVM = Mapper.Map<PersonVM>(person);
 
             return PartialView("~/Views/Shared/_MyPersonnalInfo.cshtml", personVM);
@@ -351,11 +355,11 @@ namespace SchoolManagementSystem.Controllers
 
         public PartialViewResult GetEducationCVPartial()
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Education, EducationVM>());
+            Mapper.Initialize(cfg => cfg.CreateMap<EmployeeEducationTable, EducationVM>());
             IQueryable<EducationVM> educationList = _resumeRepository.GetEducationById(idPer).ProjectTo<EducationVM>().AsQueryable();
 
             return PartialView("~/Views/Shared/_MyEducationCV.cshtml", educationList);
@@ -363,11 +367,11 @@ namespace SchoolManagementSystem.Controllers
 
         public PartialViewResult WorkExperienceCVPartial()
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<WorkExperience, WorkExperienceVM>());
+            Mapper.Initialize(cfg => cfg.CreateMap<EmployeeWorkExperienceTable, WorkExperienceVM>());
             IQueryable<WorkExperienceVM> workExperienceList = _resumeRepository.GetWorkExperienceById(idPer).ProjectTo<WorkExperienceVM>().AsQueryable();
 
 
@@ -376,12 +380,12 @@ namespace SchoolManagementSystem.Controllers
 
         public PartialViewResult SkillsCVPartial()
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Skill, SkillsVM>());
-            IQueryable<SkillVM> skillsList = _resumeRepository.GetSkillsById(idPer).ProjectTo<SkillsVM>().AsQueryable();
+            Mapper.Initialize(cfg => cfg.CreateMap<EmployeeSkillTable, SkillVM>());
+            IQueryable<SkillVM> skillsList = _resumeRepository.GetSkillsById(idPer).ProjectTo<SkillVM>().AsQueryable();
 
 
             return PartialView("~/Views/Shared/_MySkillsCV.cshtml", skillsList);
@@ -389,11 +393,11 @@ namespace SchoolManagementSystem.Controllers
 
         public PartialViewResult CertificationsCVPartial()
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Certification, CertificationVM>());
+            Mapper.Initialize(cfg => cfg.CreateMap<EmployeeCertificationTable, CertificationVM>());
             IQueryable<CertificationVM> certificationList = _resumeRepository.GetCertificationsById(idPer).ProjectTo<CertificationVM>().AsQueryable();
 
 
@@ -402,11 +406,11 @@ namespace SchoolManagementSystem.Controllers
 
         public PartialViewResult LanguageCVPartial()
         {
-            int idPer = (int)Session["IdSelected"];
+            int idPer = (int)Session["EmployeeResumeID"];
 
             //Creating Mapping
             Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.CreateMap<Language, LanguageVM>());
+            Mapper.Initialize(cfg => cfg.CreateMap<EmployeeLanguageTable, LanguageVM>());
             IQueryable<LanguageVM> languageList = _resumeRepository.GetLanguageById(idPer).ProjectTo<LanguageVM>().AsQueryable();
 
 

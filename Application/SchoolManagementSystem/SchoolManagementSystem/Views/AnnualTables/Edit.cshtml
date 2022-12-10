@@ -4,7 +4,6 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>An Annual Fee</h2>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Edit An Annual Fee</h6>
@@ -51,7 +50,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.IsActive, "Status", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-5">
                         <div class="checkbox">
                             @Html.EditorFor(model => model.IsActive)

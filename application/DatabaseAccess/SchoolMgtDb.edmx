@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchoolMgtDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchoolMgtDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AnnualTable">
           <Key>
             <PropertyRef Name="AnnualID" />
@@ -36,7 +36,7 @@
           <Property Name="ClassID" Type="int" Nullable="false" />
           <Property Name="SubjectID" Type="int" Nullable="false" />
           <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ClassTable">
           <Key>
@@ -136,6 +136,7 @@
           <Property Name="SalaryYear" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="SalaryDate" Type="date" Nullable="false" />
           <Property Name="Comments" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Salary" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeSkillTable">
           <Key>
@@ -342,8 +343,8 @@
           <Property Name="ProgrameSessionID" Type="int" />
           <Property Name="PromoteDate" Type="date" />
           <Property Name="AnnualFee" Type="int" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="IsSubmit" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsSubmit" Type="bit" Nullable="false" />
           <Property Name="SectionID" Type="int" />
         </EntityType>
         <EntityType Name="StudentTable">
@@ -1111,6 +1112,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentPromoteTable_ClassTable1">
+          <End Role="ClassTable" Type="Self.ClassTable" Multiplicity="0..1" />
+          <End Role="StudentPromoteTable" Type="Self.StudentPromoteTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassTable">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="StudentPromoteTable">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StudentPromoteTable_ProgrameSessionTable">
           <End Role="ProgrameSessionTable" Type="Self.ProgrameSessionTable" Multiplicity="0..1" />
           <End Role="StudentPromoteTable" Type="Self.StudentPromoteTable" Multiplicity="*" />
@@ -1204,6 +1217,18 @@
             </Principal>
             <Dependent Role="SubjectTable">
               <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmissionFeeTable_ClassTable">
+          <End Role="ClassTable" Type="Self.ClassTable" Multiplicity="1" />
+          <End Role="SubmissionFeeTable" Type="Self.SubmissionFeeTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassTable">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="SubmissionFeeTable">
+              <PropertyRef Name="ClassID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1600,6 +1625,10 @@
             <End Role="ClassTable" EntitySet="ClassTable" />
             <End Role="StudentPromoteTable" EntitySet="StudentPromoteTable" />
           </AssociationSet>
+          <AssociationSet Name="FK_StudentPromoteTable_ClassTable1" Association="Self.FK_StudentPromoteTable_ClassTable1">
+            <End Role="ClassTable" EntitySet="ClassTable" />
+            <End Role="StudentPromoteTable" EntitySet="StudentPromoteTable" />
+          </AssociationSet>
           <AssociationSet Name="FK_StudentPromoteTable_ProgrameSessionTable" Association="Self.FK_StudentPromoteTable_ProgrameSessionTable">
             <End Role="ProgrameSessionTable" EntitySet="ProgrameSessionTable" />
             <End Role="StudentPromoteTable" EntitySet="StudentPromoteTable" />
@@ -1631,6 +1660,10 @@
           <AssociationSet Name="FK_SubjectTable_UserTable" Association="Self.FK_SubjectTable_UserTable">
             <End Role="UserTable" EntitySet="UserTable" />
             <End Role="SubjectTable" EntitySet="SubjectTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmissionFeeTable_ClassTable" Association="Self.FK_SubmissionFeeTable_ClassTable">
+            <End Role="ClassTable" EntitySet="ClassTable" />
+            <End Role="SubmissionFeeTable" EntitySet="SubmissionFeeTable" />
           </AssociationSet>
           <AssociationSet Name="FK_SubmissionFeeTable_ProgrameTable" Association="Self.FK_SubmissionFeeTable_ProgrameTable">
             <End Role="ProgrameTable" EntitySet="ProgrameTable" />
@@ -1677,8 +1710,7 @@
             <End Role="UserTable" EntitySet="UserTable" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolMgtDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1719,7 +1751,7 @@
           <Property Name="ClassID" Type="Int32" Nullable="false" />
           <Property Name="SubjectID" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ClassTable" Relationship="Self.FK_ClassSubjectTable_ClassTable" FromRole="ClassSubjectTable" ToRole="ClassTable" />
           <NavigationProperty Name="SubjectTable" Relationship="Self.FK_ClassSubjectTable_SubjectTable" FromRole="ClassSubjectTable" ToRole="SubjectTable" />
           <NavigationProperty Name="TimeTblTables" Relationship="Self.FK_TimeTblTable_ClassSubjectTable" FromRole="ClassSubjectTable" ToRole="TimeTblTable" />
@@ -1736,7 +1768,9 @@
           <NavigationProperty Name="SchoolLeavingTables" Relationship="Self.FK_SchoolLeavingTable_ClassTable" FromRole="ClassTable" ToRole="SchoolLeavingTable" />
           <NavigationProperty Name="SessionProgrameSubjectSettingTables" Relationship="Self.FK_SessionProgrameSubjectSettingTable_ClassTable" FromRole="ClassTable" ToRole="SessionProgrameSubjectSettingTable" />
           <NavigationProperty Name="StudentPromoteTables" Relationship="Self.FK_StudentPromoteTable_ClassTable" FromRole="ClassTable" ToRole="StudentPromoteTable" />
+          <NavigationProperty Name="StudentPromoteTables1" Relationship="Self.FK_StudentPromoteTable_ClassTable1" FromRole="ClassTable" ToRole="StudentPromoteTable" />
           <NavigationProperty Name="StudentTables" Relationship="Self.FK_StudentTable_ClassTable" FromRole="ClassTable" ToRole="StudentTable" />
+          <NavigationProperty Name="SubmissionFeeTables" Relationship="Self.FK_SubmissionFeeTable_ClassTable" FromRole="ClassTable" ToRole="SubmissionFeeTable" />
           <NavigationProperty Name="TimeTblTables" Relationship="Self.FK_TimeTblTable_ClassTable" FromRole="ClassTable" ToRole="TimeTblTable" />
         </EntityType>
         <EntityType Name="DesignationTable">
@@ -1848,6 +1882,7 @@
           <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="StaffTable" Relationship="Self.FK_EmployeeSalaryTable_StaffTable" FromRole="EmployeeSalaryTable" ToRole="StaffTable" />
           <NavigationProperty Name="UserTable" Relationship="Self.FK_EmployeeSalaryTable_UserTable" FromRole="EmployeeSalaryTable" ToRole="UserTable" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeSkillTable">
           <Key>
@@ -2112,10 +2147,11 @@
           <Property Name="ProgrameSessionID" Type="Int32" />
           <Property Name="PromoteDate" Type="DateTime" Precision="0" />
           <Property Name="AnnualFee" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsSubmit" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsSubmit" Type="Boolean" Nullable="false" />
           <Property Name="SectionID" Type="Int32" />
           <NavigationProperty Name="ClassTable" Relationship="Self.FK_StudentPromoteTable_ClassTable" FromRole="StudentPromoteTable" ToRole="ClassTable" />
+          <NavigationProperty Name="ClassTable1" Relationship="Self.FK_StudentPromoteTable_ClassTable1" FromRole="StudentPromoteTable" ToRole="ClassTable" />
           <NavigationProperty Name="ProgrameSessionTable" Relationship="Self.FK_StudentPromoteTable_ProgrameSessionTable" FromRole="StudentPromoteTable" ToRole="ProgrameSessionTable" />
           <NavigationProperty Name="SectionTable" Relationship="Self.FK_StudentPromoteTable_SectionTable" FromRole="StudentPromoteTable" ToRole="SectionTable" />
           <NavigationProperty Name="StudentTable" Relationship="Self.FK_StudentPromoteTable_StudentTable" FromRole="StudentPromoteTable" ToRole="StudentTable" />
@@ -2180,6 +2216,7 @@
           <Property Name="FeesMonth" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ClassID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassTable" Relationship="Self.FK_SubmissionFeeTable_ClassTable" FromRole="SubmissionFeeTable" ToRole="ClassTable" />
           <NavigationProperty Name="ProgrameTable" Relationship="Self.FK_SubmissionFeeTable_ProgrameTable" FromRole="SubmissionFeeTable" ToRole="ProgrameTable" />
           <NavigationProperty Name="StudentTable" Relationship="Self.FK_SubmissionFeeTable_StudentTable" FromRole="SubmissionFeeTable" ToRole="StudentTable" />
           <NavigationProperty Name="UserTable" Relationship="Self.FK_SubmissionFeeTable_UserTable" FromRole="SubmissionFeeTable" ToRole="UserTable" />
@@ -2410,6 +2447,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentPromoteTable_ClassTable1">
+          <End Role="ClassTable" Type="Self.ClassTable" Multiplicity="0..1" />
+          <End Role="StudentPromoteTable" Type="Self.StudentPromoteTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassTable">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="StudentPromoteTable">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StudentTable_ClassTable">
           <End Role="ClassTable" Type="Self.ClassTable" Multiplicity="0..1" />
           <End Role="StudentTable" Type="Self.StudentTable" Multiplicity="*" />
@@ -2418,6 +2467,18 @@
               <PropertyRef Name="ClassID" />
             </Principal>
             <Dependent Role="StudentTable">
+              <PropertyRef Name="ClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubmissionFeeTable_ClassTable">
+          <End Role="ClassTable" Type="Self.ClassTable" Multiplicity="1" />
+          <End Role="SubmissionFeeTable" Type="Self.SubmissionFeeTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassTable">
+              <PropertyRef Name="ClassID" />
+            </Principal>
+            <Dependent Role="SubmissionFeeTable">
               <PropertyRef Name="ClassID" />
             </Dependent>
           </ReferentialConstraint>
@@ -3251,9 +3312,17 @@
             <End Role="ClassTable" EntitySet="ClassTables" />
             <End Role="StudentPromoteTable" EntitySet="StudentPromoteTables" />
           </AssociationSet>
+          <AssociationSet Name="FK_StudentPromoteTable_ClassTable1" Association="Self.FK_StudentPromoteTable_ClassTable1">
+            <End Role="ClassTable" EntitySet="ClassTables" />
+            <End Role="StudentPromoteTable" EntitySet="StudentPromoteTables" />
+          </AssociationSet>
           <AssociationSet Name="FK_StudentTable_ClassTable" Association="Self.FK_StudentTable_ClassTable">
             <End Role="ClassTable" EntitySet="ClassTables" />
             <End Role="StudentTable" EntitySet="StudentTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubmissionFeeTable_ClassTable" Association="Self.FK_SubmissionFeeTable_ClassTable">
+            <End Role="ClassTable" EntitySet="ClassTables" />
+            <End Role="SubmissionFeeTable" EntitySet="SubmissionFeeTables" />
           </AssociationSet>
           <AssociationSet Name="FK_TimeTblTable_ClassTable" Association="Self.FK_TimeTblTable_ClassTable">
             <End Role="ClassTable" EntitySet="ClassTables" />
@@ -3643,6 +3712,7 @@
           <EntitySetMapping Name="EmployeeSalaryTables">
             <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeSalaryTable">
               <MappingFragment StoreEntitySet="EmployeeSalaryTable">
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="EmployeeSalaryID" ColumnName="EmployeeSalaryID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="StaffID" ColumnName="StaffID" />

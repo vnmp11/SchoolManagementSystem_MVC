@@ -4,13 +4,13 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Create A New User</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Edit An Employee</h6>
     </div>
     <div class="card-body">
-        @using (Html.BeginForm())
+
+        @using (Html.BeginForm("Edit", "StaffTables", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    @Html.LabelFor(model => model.Designation_ID, "Designation_ID", htmlAttributes: new { @class = "control-label col-md-5" })
+                    @Html.LabelFor(model => model.Designation_ID, "Select Designation", htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col">
                         @Html.DropDownList("Designation_ID", null, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Designation_ID, "", new { @class = "text-danger" })
@@ -88,7 +88,7 @@
 
             <div class="form-group row">
                 <div class="col-lg-5">
-                    @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-5" })
+                    @Html.LabelFor(model => model.IsActive, "Status", htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col">
                         <div class="checkbox">
                             @Html.EditorFor(model => model.IsActive)
@@ -107,14 +107,14 @@
 
             <div class="form-group row">
                 <div class="col-lg-5">
-                    @Html.LabelFor(model => model.BasicSalary, htmlAttributes: new { @class = "control-label col-md-5" })
+                    @Html.LabelFor(model => model.BasicSalary, "Basic Salary", htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col">
                         @Html.EditorFor(model => model.BasicSalary, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.BasicSalary, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    @Html.LabelFor(model => model.RegistrationDate, htmlAttributes: new { @class = "control-label col-md-5" })
+                    @Html.LabelFor(model => model.RegistrationDate, "Registration Date", htmlAttributes: new { @class = "control-label col-md-5" })
                     <div class="col">
                         @Html.EditorFor(model => model.RegistrationDate, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.RegistrationDate, "", new { @class = "text-danger" })

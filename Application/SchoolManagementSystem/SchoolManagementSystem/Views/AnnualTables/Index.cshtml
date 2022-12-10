@@ -4,9 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Annual Fee</h2>
-
-
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
@@ -29,7 +26,7 @@
                             @Html.DisplayNameFor(model => model.Fees)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.IsActive)
+                            Status
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.ProgrameTable.Name)
@@ -37,7 +34,9 @@
                         <th>
                             @Html.DisplayNameFor(model => model.UserTable.FullName)
                         </th>
-                        <th></th>
+                        <th>
+                            Action
+                        </th>
                     </tr>
                     </thead>
                 <tbody>
@@ -63,7 +62,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.UserTable.FullName)
                             </td>
-                            <td>
+                            <td class="btn-group">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.AnnualID }, new { @class = "btn btn-primary" })
                                 @Html.ActionLink("Details", "Details", new { id = item.AnnualID }, new { @class = "btn btn-info" })
                                 @Html.ActionLink("Delete", "Delete", new { id = item.AnnualID }, new { @class = "btn btn-danger" })

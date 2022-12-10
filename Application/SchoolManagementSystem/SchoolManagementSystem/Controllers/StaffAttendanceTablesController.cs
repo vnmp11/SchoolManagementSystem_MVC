@@ -54,7 +54,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            ViewBag.Staff_ID = new SelectList(db.StaffTables, "StaffID", "Name");
+            ViewBag.Staff_ID = new SelectList(db.StaffTables.Where(s=>s.IsActive == true), "StaffID", "Name");
             return View();
         }
 
@@ -69,6 +69,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+
 
             if (ModelState.IsValid)
             {
@@ -98,7 +99,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Staff_ID = new SelectList(db.StaffTables, "StaffID", "Name", staffAttendanceTable.Staff_ID);
+            ViewBag.Staff_ID = new SelectList(db.StaffTables.Where(s => s.IsActive == true), "StaffID", "Name", staffAttendanceTable.Staff_ID);
             return View(staffAttendanceTable);
         }
 

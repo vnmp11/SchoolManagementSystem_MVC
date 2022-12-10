@@ -11,20 +11,15 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class EmployeeLeavingTable
     {
         public int EmployeeLeavingID { get; set; }
         public int UserID { get; set; }
         public int StaffID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime LeavingDate { get; set; }
         public string LeavingReason { get; set; }
         public string LeavingComments { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime CreatedDate { get; set; }
     
         public virtual StaffTable StaffTable { get; set; }

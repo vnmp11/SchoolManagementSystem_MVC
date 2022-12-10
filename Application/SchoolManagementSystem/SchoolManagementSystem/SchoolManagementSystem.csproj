@@ -163,6 +163,7 @@
     <Compile Include="Controllers\ClassSubjectTablesController.cs" />
     <Compile Include="Controllers\ClassTablesController.cs" />
     <Compile Include="Controllers\DesignationTablesController.cs" />
+    <Compile Include="Controllers\EmployeeSalaryTablesController.cs" />
     <Compile Include="Controllers\ExamMarkTablesController.cs" />
     <Compile Include="Controllers\ExamTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1898,6 +1899,7 @@
     <Content Include="Content\jquery-ui.structure.css" />
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\StaffPhoto\default.png" />
+    <Content Include="Content\StudentPhoto\default.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2249,11 +2251,6 @@
     <Content Include="Views\ExamMarkTables\Details.cshtml" />
     <Content Include="Views\ExamMarkTables\Edit.cshtml" />
     <Content Include="Views\ExamMarkTables\Index.cshtml" />
-    <Content Include="Views\StudentPromoteTables\Create.cshtml" />
-    <Content Include="Views\StudentPromoteTables\Delete.cshtml" />
-    <Content Include="Views\StudentPromoteTables\Details.cshtml" />
-    <Content Include="Views\StudentPromoteTables\Edit.cshtml" />
-    <Content Include="Views\StudentPromoteTables\Index.cshtml" />
     <Content Include="Views\StaffAttendanceTables\Create.cshtml" />
     <Content Include="Views\StaffAttendanceTables\Delete.cshtml" />
     <Content Include="Views\StaffAttendanceTables\Details.cshtml" />
@@ -2291,6 +2288,16 @@
     <Content Include="Views\ClassTables\Details.cshtml" />
     <Content Include="Views\ClassTables\Edit.cshtml" />
     <Content Include="Views\ClassTables\Index.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Create.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Delete.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Details.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Edit.cshtml" />
+    <Content Include="Views\StudentPromoteTables\Index.cshtml" />
+    <Content Include="Views\EmployeeSalaryTables\Create.cshtml" />
+    <Content Include="Views\EmployeeSalaryTables\Delete.cshtml" />
+    <Content Include="Views\EmployeeSalaryTables\Details.cshtml" />
+    <Content Include="Views\EmployeeSalaryTables\Edit.cshtml" />
+    <Content Include="Views\EmployeeSalaryTables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

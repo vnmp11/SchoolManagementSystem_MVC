@@ -78,6 +78,8 @@ namespace SchoolManagementSystem.Controllers
 
                 if (className != null)
                 {
+                    classSubjectTable.Title = className.Name + " - " + (subjectName.Name != null ? subjectName.Name : "") + classSubjectTable.Title;
+
                     if (!classSubjectTable.Title.Contains(className.Name))
                     {
                         //classSubjectTable.Title = classSubjectTable.Title + " - " + className.Name;

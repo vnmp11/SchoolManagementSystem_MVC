@@ -7,6 +7,8 @@ A School Management System with MVC using ASP .NET
    ```sh
    https://github.com/vnmp11/SchoolManagementSystem_MVC.git
    ```
+2. Setup Database
+   
 ## 📣 Built With
 
 This section should list any major frameworks/libraries used to my project.

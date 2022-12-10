@@ -81,9 +81,9 @@ namespace SchoolManagementSystem.Controllers
             if (image != null)
             {
                 string fileName = image.FileName;
-                string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+                string _path = Path.Combine(Server.MapPath("/Content/StudentPhoto"), fileName);
                 image.SaveAs(_path);
-                studentTable.Photo = "/Content/StaffPhoto/" + fileName;
+                studentTable.Photo = "/Content/StudentPhoto/" + fileName;
             }
 
             if (ModelState.IsValid)
@@ -143,9 +143,9 @@ namespace SchoolManagementSystem.Controllers
             if (image != null)
             {
                 string fileName = image.FileName;
-                string _path = Path.Combine(Server.MapPath("/Content/StaffPhoto"), fileName);
+                string _path = Path.Combine(Server.MapPath("/Content/StudentPhoto"), fileName);
                 image.SaveAs(_path);
-                studentTable.Photo = "/Content/StaffPhoto/" + fileName;
+                studentTable.Photo = "/Content/StudentPhoto/" + fileName;
             }
 
             if (ModelState.IsValid)

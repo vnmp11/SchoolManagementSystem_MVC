@@ -82,10 +82,11 @@ namespace SchoolManagementSystem.Controllers
 
                 if (sessionName != null)
                 {
+                    programeSessionTable.Details = "(" + sessionName.Name + " - " + (programName != null ? programName.Name : "") + ")" + programeSessionTable.Details;
+
                     if (!programeSessionTable.Details.Contains(sessionName.Name))
                     {
-                        var details = "(" + sessionName.Name + " - " + (programName != null ? programName.Name : "") + ")" + programeSessionTable.Details;
-                        programeSessionTable.Details = details;
+                        programeSessionTable.Details = "(" + sessionName.Name + " - " + (programName != null ? programName.Name : "") + ")" + programeSessionTable.Details;
                     }
                 }
                 db.ProgrameSessionTables.Add(programeSessionTable);

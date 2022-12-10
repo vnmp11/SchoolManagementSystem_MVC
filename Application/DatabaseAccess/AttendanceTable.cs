@@ -11,16 +11,12 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AttendanceTable
     {
         public int AttendanceID { get; set; }
         public int Student_ID { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime AttendDate { get; set; }
-        [DataType(DataType.Time)]
         public System.TimeSpan AttendTime { get; set; }
         public int SessionID { get; set; }
         public int ClassID { get; set; }

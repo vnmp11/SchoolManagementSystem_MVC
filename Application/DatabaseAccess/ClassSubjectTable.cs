@@ -24,7 +24,7 @@ namespace DatabaseAccess
         public int ClassID { get; set; }
         public int SubjectID { get; set; }
         public string Title { get; set; }
-        public Nullable<bool> IsActive { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual ClassTable ClassTable { get; set; }
         public virtual SubjectTable SubjectTable { get; set; }

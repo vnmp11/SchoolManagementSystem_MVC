@@ -67,6 +67,11 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserID,UserType_ID,FullName,UserName,Password,ContactNo,EmailAddress,Address")] UserTable userTable)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+ 
             if (ModelState.IsValid)
             {
                 db.UserTables.Add(userTable);
@@ -107,6 +112,11 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserID,UserType_ID,FullName,UserName,Password,ContactNo,EmailAddress,Address")] UserTable userTable)
         {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(userTable).State = EntityState.Modified;

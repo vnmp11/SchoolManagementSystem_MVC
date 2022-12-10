@@ -75,11 +75,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         @Html.ActionLink("Registration", "Index", "StudentTables", null, new { @class = "collapse-item" })
                         @Html.ActionLink("Promotion", "Index", "StudentPromoteTables", null, new { @class = "collapse-item" })
-                        @Html.ActionLink("Attendance", "Index", "AttendanceTables", null, new { @class = "collapse-item" })
+                        @*@Html.ActionLink("Attendance", "Index", "AttendanceTables", null, new { @class = "collapse-item" })*@
 
                         <h6 class="collapse-header">Fee:</h6>
                         @Html.ActionLink("Tution Fee", "Index", "SubmissionFeeTables", null, new { @class = "collapse-item" })
-                        @Html.ActionLink("Annual Fee", "Index", "StudentPromoteTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Annual Fee", "Index", "AnnualTables", null, new { @class = "collapse-item" })
                     </div>
                 </div>
             </li>
@@ -103,6 +103,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         @Html.ActionLink("Registration", "Index", "StaffTables", null, new { @class = "collapse-item" })
                         @Html.ActionLink("Attendance", "Index", "StaffAttendanceTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Salary", "Index", "EmployeeSalaryTables", null, new { @class = "collapse-item" })
+
                     </div>
                 </div>
             </li>

@@ -10,11 +10,11 @@ using DatabaseAccess;
 
 namespace SchoolManagementSystem.Controllers
 {
-    public class SubmissionFeeTablesController : Controller
+    public class EmployeeSalaryTablesController : Controller
     {
         private SchoolMgtDbEntities db = new SchoolMgtDbEntities();
 
-        // GET: SubmissionFeeTables
+        // GET: EmployeeSalaryTables
         public ActionResult Index()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -22,11 +22,11 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var submissionFeeTables = db.SubmissionFeeTables.Include(s => s.ProgrameTable).Include(s => s.StudentTable).Include(s => s.UserTable);
-            return View(submissionFeeTables.ToList());
+            var employeeSalaryTables = db.EmployeeSalaryTables.Include(e => e.StaffTable).Include(e => e.UserTable);
+            return View(employeeSalaryTables.ToList());
         }
 
-        // GET: SubmissionFeeTables/Details/5
+        // GET: EmployeeSalaryTables/Details/5
         public ActionResult Details(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -34,20 +34,19 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubmissionFeeTable submissionFeeTable = db.SubmissionFeeTables.Find(id);
-            if (submissionFeeTable == null)
+            EmployeeSalaryTable employeeSalaryTable = db.EmployeeSalaryTables.Find(id);
+            if (employeeSalaryTable == null)
             {
                 return HttpNotFound();
             }
-            return View(submissionFeeTable);
+            return View(employeeSalaryTable);
         }
 
-        // GET: SubmissionFeeTables/Create
+        // GET: EmployeeSalaryTables/Create
         public ActionResult Create()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -55,19 +54,17 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name");
-            ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name");
-            ViewBag.Student_ID = new SelectList(db.StudentTables, "StudentID", "Name");
-            ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName");
+            ViewBag.StaffID = new SelectList(db.StaffTables.Where(s=>s.IsActive == true), "StaffID", "Name");
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName");
             return View();
         }
 
-        // POST: SubmissionFeeTables/Create
+        // POST: EmployeeSalaryTables/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SubmissionFeeTable submissionFeeTable)
+        public ActionResult Create([Bind(Include = "EmployeeSalaryID,UserID,StaffID,SalaryMonth,SalaryYear,SalaryDate,Comments")] EmployeeSalaryTable employeeSalaryTable)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
@@ -75,24 +72,21 @@ namespace SchoolManagementSystem.Controllers
             }
 
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
-            submissionFeeTable.User_ID = userId;
+            employeeSalaryTable.UserID = userId;
 
             if (ModelState.IsValid)
             {
-                db.SubmissionFeeTables.Add(submissionFeeTable);
+                db.EmployeeSalaryTables.Add(employeeSalaryTable);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-
-            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name", submissionFeeTable.ClassID);
-            ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name", submissionFeeTable.Programe_ID);
-            ViewBag.Student_ID = new SelectList(db.StudentTables, "StudentID", "Name", submissionFeeTable.Student_ID);
-            ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", submissionFeeTable.User_ID);
-            return View(submissionFeeTable);
+            ViewBag.StaffID = new SelectList(db.StaffTables, "StaffID", "Name", employeeSalaryTable.StaffID);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", employeeSalaryTable.UserID);
+            return View(employeeSalaryTable);
         }
 
-        // GET: SubmissionFeeTables/Edit/5
+        // GET: EmployeeSalaryTables/Edit/5
         public ActionResult Edit(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -104,24 +98,22 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubmissionFeeTable submissionFeeTable = db.SubmissionFeeTables.Find(id);
-            if (submissionFeeTable == null)
+            EmployeeSalaryTable employeeSalaryTable = db.EmployeeSalaryTables.Find(id);
+            if (employeeSalaryTable == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name", submissionFeeTable.ClassID);
-            ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name", submissionFeeTable.Programe_ID);
-            ViewBag.Student_ID = new SelectList(db.StudentTables, "StudentID", "Name", submissionFeeTable.Student_ID);
-            ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", submissionFeeTable.User_ID);
-            return View(submissionFeeTable);
+            ViewBag.StaffID = new SelectList(db.StaffTables.Where(s => s.IsActive == true), "StaffID", "Name", employeeSalaryTable.StaffID);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", employeeSalaryTable.UserID);
+            return View(employeeSalaryTable);
         }
 
-        // POST: SubmissionFeeTables/Edit/5
+        // POST: EmployeeSalaryTables/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SubmissionFeeTable submissionFeeTable)
+        public ActionResult Edit([Bind(Include = "EmployeeSalaryID,UserID,StaffID,SalaryMonth,SalaryYear,SalaryDate,Comments")] EmployeeSalaryTable employeeSalaryTable)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
@@ -129,22 +121,20 @@ namespace SchoolManagementSystem.Controllers
             }
 
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
-            submissionFeeTable.User_ID = userId;
+            employeeSalaryTable.UserID = userId;
 
             if (ModelState.IsValid)
             {
-                db.Entry(submissionFeeTable).State = EntityState.Modified;
+                db.Entry(employeeSalaryTable).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name", submissionFeeTable.ClassID);
-            ViewBag.Programe_ID = new SelectList(db.ProgrameTables, "ProgrameID", "Name", submissionFeeTable.Programe_ID);
-            ViewBag.Student_ID = new SelectList(db.StudentTables, "StudentID", "Name", submissionFeeTable.Student_ID);
-            ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", submissionFeeTable.User_ID);
-            return View(submissionFeeTable);
+            ViewBag.StaffID = new SelectList(db.StaffTables, "StaffID", "Name", employeeSalaryTable.StaffID);
+            ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName", employeeSalaryTable.UserID);
+            return View(employeeSalaryTable);
         }
 
-        // GET: SubmissionFeeTables/Delete/5
+        // GET: EmployeeSalaryTables/Delete/5
         public ActionResult Delete(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -156,21 +146,21 @@ namespace SchoolManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubmissionFeeTable submissionFeeTable = db.SubmissionFeeTables.Find(id);
-            if (submissionFeeTable == null)
+            EmployeeSalaryTable employeeSalaryTable = db.EmployeeSalaryTables.Find(id);
+            if (employeeSalaryTable == null)
             {
                 return HttpNotFound();
             }
-            return View(submissionFeeTable);
+            return View(employeeSalaryTable);
         }
 
-        // POST: SubmissionFeeTables/Delete/5
+        // POST: EmployeeSalaryTables/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SubmissionFeeTable submissionFeeTable = db.SubmissionFeeTables.Find(id);
-            db.SubmissionFeeTables.Remove(submissionFeeTable);
+            EmployeeSalaryTable employeeSalaryTable = db.EmployeeSalaryTables.Find(id);
+            db.EmployeeSalaryTables.Remove(employeeSalaryTable);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

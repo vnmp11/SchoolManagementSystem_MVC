@@ -11,8 +11,7 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class ExpensesTable
     {
         public int ExpensesID { get; set; }
@@ -21,8 +20,6 @@ namespace DatabaseAccess
         public double Amount { get; set; }
         public string InvoiceNo { get; set; }
         public string Reason { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExpDate { get; set; }
         public string Descrption { get; set; }
     

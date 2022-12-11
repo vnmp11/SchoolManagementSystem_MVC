@@ -11,13 +11,16 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class StudentPromoteTable
     {
         public int StudentPromoteID { get; set; }
         public Nullable<int> StudentID { get; set; }
         public Nullable<int> ClassID { get; set; }
         public Nullable<int> ProgrameSessionID { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> PromoteDate { get; set; }
         public Nullable<int> AnnualFee { get; set; }
         public bool IsActive { get; set; }

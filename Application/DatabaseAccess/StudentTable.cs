@@ -11,7 +11,10 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
+
     public partial class StudentTable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -31,17 +34,25 @@ namespace DatabaseAccess
         public Nullable<int> ClassID { get; set; }
         public string Name { get; set; }
         public string FatherName { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime DateofBirth { get; set; }
         public string Gender { get; set; }
         public string ContactNo { get; set; }
         public string Photo { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime AddmissionDate { get; set; }
         public string PreviousSchool { get; set; }
         public Nullable<double> PreviousPercentage { get; set; }
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public string Nationality { get; set; }
-    
+        [DataType(DataType.Upload)]
+        [NotMapped]
+        public HttpPostedFileBase PhotoFile { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AttendanceTable> AttendanceTables { get; set; }
         public virtual ClassTable ClassTable { get; set; }

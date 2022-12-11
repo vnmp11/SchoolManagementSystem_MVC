@@ -179,5 +179,21 @@ namespace SchoolManagementSystem.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult GetByPromoteID(string sid)
+        {
+            int promoteid = Convert.ToInt32(sid);
+            var promoterecord = db.StudentPromoteTables.Find(promoteid);
+            var student = promoterecord.StudentTable.Name;
+            var classsubject = db.ClassSubjectTables.Where(cls => cls.ClassID == promoterecord.ClassID);
+            return Json(new { student = student, subject = classsubject }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetTotalMarks(string sid)
+        {
+            int classsubjectid = Convert.ToInt32(sid);
+            var totalmark = db.ClassSubjectTables.Find(classsubjectid).SubjectTable.TotalMarks;
+            return Json(new { data = totalmark}, JsonRequestBehavior.AllowGet);
+        }
     }
 }

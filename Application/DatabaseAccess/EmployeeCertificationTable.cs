@@ -11,13 +11,16 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EmployeeCertificationTable
     {
         public int EmployeeCertificationID { get; set; }
         public string CertificationName { get; set; }
         public string CertificationAuthority { get; set; }
         public string LevelCertification { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> FromYear { get; set; }
         public Nullable<int> EmployeeResumeID { get; set; }
         public int UserID { get; set; }

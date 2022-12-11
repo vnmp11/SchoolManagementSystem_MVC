@@ -30,11 +30,7 @@
                             @Html.DisplayNameFor(model => model.SalaryDate)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Comments)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.UserTable.FullName)
+                            @Html.DisplayNameFor(model => model.Salary)
                         </th>
                         <th>
                             Action
@@ -58,12 +54,10 @@
                             @Html.DisplayFor(modelItem => item.SalaryDate)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Comments)
+                            @Html.DisplayFor(modelItem => item.Salary)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserTable.FullName)
-                        </td>
-                        <td>
+
+                        <td class="btn-group">
                             @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeSalaryID }, new { @class = "btn btn-primary" })
                             @Html.ActionLink("Details", "Details", new { id = item.EmployeeSalaryID }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeSalaryID }, new { @class = "btn btn-danger" })

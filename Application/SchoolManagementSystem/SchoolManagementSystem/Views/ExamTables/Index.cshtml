@@ -4,14 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">All Designations</h6>
+        <h6 class="m-0 font-weight-bold text-primary">All Examinations</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -22,10 +20,10 @@
                             @Html.DisplayNameFor(model => model.Title)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.StartDate)
+                            Start Date
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.EndDate)
+                            End Date
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Descrption)

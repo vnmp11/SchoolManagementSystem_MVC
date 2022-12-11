@@ -11,7 +11,8 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EmployeeSalaryTable
     {
         public int EmployeeSalaryID { get; set; }
@@ -19,9 +20,11 @@ namespace DatabaseAccess
         public int StaffID { get; set; }
         public string SalaryMonth { get; set; }
         public string SalaryYear { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime SalaryDate { get; set; }
         public string Comments { get; set; }
-        public int Salary { get; set; }
+        public double Salary { get; set; }
     
         public virtual StaffTable StaffTable { get; set; }
         public virtual UserTable UserTable { get; set; }

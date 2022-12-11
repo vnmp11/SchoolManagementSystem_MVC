@@ -75,6 +75,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         @Html.ActionLink("Registration", "Index", "StudentTables", null, new { @class = "collapse-item" })
                         @Html.ActionLink("Promotion", "Index", "StudentPromoteTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Attendance", "Index", "AttendanceTables", null, new { @class = "collapse-item" })
+
                         @*@Html.ActionLink("Attendance", "Index", "AttendanceTables", null, new { @class = "collapse-item" })*@
 
                         <h6 class="collapse-header">Fee:</h6>
@@ -194,7 +196,7 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-sticky-note"></i>
-                    <span>Examination</span>
+                    <span>Exam Setting</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">

@@ -54,6 +54,11 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
+            EmployeeSalaryTable employeeSalaryTable = new EmployeeSalaryTable();
+            employeeSalaryTable.SalaryDate = DateTime.Now;
+            employeeSalaryTable.SalaryMonth = DateTime.Now.AddMonths(-1).ToString("MMMM");
+            employeeSalaryTable.SalaryYear = DateTime.Now.ToString("yyyy");
+
             ViewBag.StaffID = new SelectList(db.StaffTables.Where(s=>s.IsActive == true), "StaffID", "Name");
             ViewBag.UserID = new SelectList(db.UserTables, "UserID", "FullName");
             return View();
@@ -66,10 +71,15 @@ namespace SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EmployeeSalaryID,UserID,StaffID,SalaryMonth,SalaryYear,SalaryDate,Comments")] EmployeeSalaryTable employeeSalaryTable)
         {
+
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Home");
             }
+
+            employeeSalaryTable.SalaryDate = DateTime.Now;
+            employeeSalaryTable.SalaryMonth = DateTime.Now.ToString("MMMM");
+            employeeSalaryTable.SalaryYear = DateTime.Now.ToString("yyyy");
 
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
             employeeSalaryTable.UserID = userId;
@@ -172,6 +182,14 @@ namespace SchoolManagementSystem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult GetSalary(string sid)
+        {
+            int staffid = Convert.ToInt32(sid);
+            var ps = db.StaffTables.Find(staffid);
+            double? salary = ps.BasicSalary;
+            return Json(new { Salary = salary }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -11,7 +11,8 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TimeTblTable
     {
         public int TimeTableID { get; set; }
@@ -20,7 +21,9 @@ namespace DatabaseAccess
         public int ClassSubjectID { get; set; }
         public int StaffID { get; set; }
         public int Room_ID { get; set; }
+        [DataType(DataType.Time)]
         public System.TimeSpan StartTime { get; set; }
+        [DataType(DataType.Time)]
         public System.TimeSpan EndTime { get; set; }
         public string Day { get; set; }
         public bool IsActive { get; set; }

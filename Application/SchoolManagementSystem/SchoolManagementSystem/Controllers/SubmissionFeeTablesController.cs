@@ -183,5 +183,13 @@ namespace SchoolManagementSystem.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult GetByPromoteId(string sid)
+        {
+            int promoteid = Convert.ToInt32(sid);
+            var promoterecord = db.StudentPromoteTables.Find(promoteid);
+
+            return Json(new { StudentID = promoterecord.StudentID, ClassID = promoterecord.ClassID, ProgrameID = promoterecord.ProgrameSessionTable.Programe_ID }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -11,11 +11,14 @@ namespace DatabaseAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class EventTable
     {
         public int EventID { get; set; }
         public string EventTitle { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime EventDate { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }

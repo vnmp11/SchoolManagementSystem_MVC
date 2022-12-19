@@ -157,6 +157,7 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ExpensesTypeTable expensesTypeTable = db.ExpensesTypeTables.Find(id);
+
             db.ExpensesTypeTables.Remove(expensesTypeTable);
             db.SaveChanges();
             return RedirectToAction("Index");

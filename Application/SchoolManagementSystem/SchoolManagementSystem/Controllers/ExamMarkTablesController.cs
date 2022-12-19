@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using DatabaseAccess;
 
 namespace SchoolManagementSystem.Controllers
@@ -22,7 +23,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var examMarkTables = db.ExamMarkTables.Include(e => e.ExamTable).Include(e => e.StudentTable).Include(e => e.UserTable);
+            var examMarkTables = db.ExamMarkTables.Include(e => e.ExamTable).Include(e => e.StudentTable).Include(e => e.UserTable).OrderByDescending(e => e.MarkID);
             return View(examMarkTables.ToList());
         }
 
@@ -30,6 +31,9 @@ namespace SchoolManagementSystem.Controllers
         public ActionResult Details(int? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            } if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
             {
                 return RedirectToAction("Login", "Home");
             }
@@ -97,7 +101,8 @@ namespace SchoolManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-
+            int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -184,9 +189,19 @@ namespace SchoolManagementSystem.Controllers
         {
             int promoteid = Convert.ToInt32(sid);
             var promoterecord = db.StudentPromoteTables.Find(promoteid);
-            var student = promoterecord.StudentTable.Name;
-            var classsubject = db.ClassSubjectTables.Where(cls => cls.ClassID == promoterecord.ClassID);
-            return Json(new { student = student, subject = classsubject }, JsonRequestBehavior.AllowGet);
+            List<StudentTable> stdlist = new List<StudentTable>();
+       
+                stdlist.Add(new StudentTable { StudentID = (int)promoterecord.StudentID, Name = promoterecord.StudentTable.Name });
+            
+         
+            List<ClassSubjectTable> listsubjects = new List<ClassSubjectTable>();
+            var classsubject = db.ClassSubjectTables.Where(cls => cls.ClassID == promoterecord.ClassID && cls.IsActive == true);
+            foreach( var subj in classsubject)
+            {
+                listsubjects.Add(new ClassSubjectTable { ClassSubjectID = subj.ClassSubjectID });
+            }
+
+            return Json(new { student = stdlist, subject = listsubjects }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetTotalMarks(string sid)

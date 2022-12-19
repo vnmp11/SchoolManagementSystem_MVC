@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SchoolMgtDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SchoolMgtDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AnnualTable">
           <Key>
             <PropertyRef Name="AnnualID" />
@@ -129,7 +129,7 @@
           <Key>
             <PropertyRef Name="EmployeeSalaryID" />
           </Key>
-          <Property Name="EmployeeSalaryID" Type="int" Nullable="false" />
+          <Property Name="EmployeeSalaryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="StaffID" Type="int" Nullable="false" />
           <Property Name="SalaryMonth" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -183,6 +183,7 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="TotalMarks" Type="int" Nullable="false" />
           <Property Name="ObtainMarks" Type="int" Nullable="false" />
+          <Property Name="ClassSubjectID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ExamSettingTable">
           <Key>
@@ -725,6 +726,18 @@
             </Principal>
             <Dependent Role="EventTable">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamMarkTable_ClassSubjectTable">
+          <End Role="ClassSubjectTable" Type="Self.ClassSubjectTable" Multiplicity="1" />
+          <End Role="ExamMarkTable" Type="Self.ExamMarkTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassSubjectTable">
+              <PropertyRef Name="ClassSubjectID" />
+            </Principal>
+            <Dependent Role="ExamMarkTable">
+              <PropertyRef Name="ClassSubjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1497,6 +1510,10 @@
             <End Role="UserTable" EntitySet="UserTable" />
             <End Role="EventTable" EntitySet="EventTable" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExamMarkTable_ClassSubjectTable" Association="Self.FK_ExamMarkTable_ClassSubjectTable">
+            <End Role="ClassSubjectTable" EntitySet="ClassSubjectTable" />
+            <End Role="ExamMarkTable" EntitySet="ExamMarkTable" />
+          </AssociationSet>
           <AssociationSet Name="FK_ExamMarkTable_ExamTable" Association="Self.FK_ExamMarkTable_ExamTable">
             <End Role="ExamTable" EntitySet="ExamTable" />
             <End Role="ExamMarkTable" EntitySet="ExamMarkTable" />
@@ -1710,7 +1727,8 @@
             <End Role="UserTable" EntitySet="UserTable" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolMgtDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1754,6 +1772,7 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ClassTable" Relationship="Self.FK_ClassSubjectTable_ClassTable" FromRole="ClassSubjectTable" ToRole="ClassTable" />
           <NavigationProperty Name="SubjectTable" Relationship="Self.FK_ClassSubjectTable_SubjectTable" FromRole="ClassSubjectTable" ToRole="SubjectTable" />
+          <NavigationProperty Name="ExamMarkTables" Relationship="Self.FK_ExamMarkTable_ClassSubjectTable" FromRole="ClassSubjectTable" ToRole="ExamMarkTable" />
           <NavigationProperty Name="TimeTblTables" Relationship="Self.FK_TimeTblTable_ClassSubjectTable" FromRole="ClassSubjectTable" ToRole="TimeTblTable" />
         </EntityType>
         <EntityType Name="ClassTable">
@@ -1873,16 +1892,16 @@
           <Key>
             <PropertyRef Name="EmployeeSalaryID" />
           </Key>
-          <Property Name="EmployeeSalaryID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeSalaryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="StaffID" Type="Int32" Nullable="false" />
           <Property Name="SalaryMonth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SalaryYear" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="SalaryDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Comments" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Salary" Type="Double" Nullable="false" />
           <NavigationProperty Name="StaffTable" Relationship="Self.FK_EmployeeSalaryTable_StaffTable" FromRole="EmployeeSalaryTable" ToRole="StaffTable" />
           <NavigationProperty Name="UserTable" Relationship="Self.FK_EmployeeSalaryTable_UserTable" FromRole="EmployeeSalaryTable" ToRole="UserTable" />
-          <Property Name="Salary" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeeSkillTable">
           <Key>
@@ -1934,6 +1953,8 @@
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="TotalMarks" Type="Int32" Nullable="false" />
           <Property Name="ObtainMarks" Type="Int32" Nullable="false" />
+          <Property Name="ClassSubjectID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClassSubjectTable" Relationship="Self.FK_ExamMarkTable_ClassSubjectTable" FromRole="ExamMarkTable" ToRole="ClassSubjectTable" />
           <NavigationProperty Name="ExamTable" Relationship="Self.FK_ExamMarkTable_ExamTable" FromRole="ExamMarkTable" ToRole="ExamTable" />
           <NavigationProperty Name="StudentTable" Relationship="Self.FK_ExamMarkTable_StudentTable" FromRole="ExamMarkTable" ToRole="StudentTable" />
           <NavigationProperty Name="SubjectTable" Relationship="Self.FK_ExamMarkTable_SubjectTable" FromRole="ExamMarkTable" ToRole="SubjectTable" />
@@ -2396,6 +2417,18 @@
             </Principal>
             <Dependent Role="ClassSubjectTable">
               <PropertyRef Name="SubjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExamMarkTable_ClassSubjectTable">
+          <End Role="ClassSubjectTable" Type="Self.ClassSubjectTable" Multiplicity="1" />
+          <End Role="ExamMarkTable" Type="Self.ExamMarkTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassSubjectTable">
+              <PropertyRef Name="ClassSubjectID" />
+            </Principal>
+            <Dependent Role="ExamMarkTable">
+              <PropertyRef Name="ClassSubjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3296,6 +3329,10 @@
             <End Role="SubjectTable" EntitySet="SubjectTables" />
             <End Role="ClassSubjectTable" EntitySet="ClassSubjectTables" />
           </AssociationSet>
+          <AssociationSet Name="FK_ExamMarkTable_ClassSubjectTable" Association="Self.FK_ExamMarkTable_ClassSubjectTable">
+            <End Role="ClassSubjectTable" EntitySet="ClassSubjectTables" />
+            <End Role="ExamMarkTable" EntitySet="ExamMarkTables" />
+          </AssociationSet>
           <AssociationSet Name="FK_TimeTblTable_ClassSubjectTable" Association="Self.FK_TimeTblTable_ClassSubjectTable">
             <End Role="ClassSubjectTable" EntitySet="ClassSubjectTables" />
             <End Role="TimeTblTable" EntitySet="TimeTblTables" />
@@ -3712,7 +3749,6 @@
           <EntitySetMapping Name="EmployeeSalaryTables">
             <EntityTypeMapping TypeName="SchoolMgtDbModel.EmployeeSalaryTable">
               <MappingFragment StoreEntitySet="EmployeeSalaryTable">
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="EmployeeSalaryID" ColumnName="EmployeeSalaryID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="StaffID" ColumnName="StaffID" />
@@ -3720,6 +3756,7 @@
                 <ScalarProperty Name="SalaryYear" ColumnName="SalaryYear" />
                 <ScalarProperty Name="SalaryDate" ColumnName="SalaryDate" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3770,6 +3807,7 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
                 <ScalarProperty Name="ObtainMarks" ColumnName="ObtainMarks" />
+                <ScalarProperty Name="ClassSubjectID" ColumnName="ClassSubjectID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

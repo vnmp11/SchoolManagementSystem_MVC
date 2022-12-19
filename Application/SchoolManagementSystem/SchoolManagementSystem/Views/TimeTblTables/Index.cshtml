@@ -5,7 +5,7 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Assin subject teacher", "Create", null, new { @class = "btn btn-success" })
 </p>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -17,37 +17,25 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.StartTime)
+                            Teacher ID
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.EndTime)
+                           Teacher
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Day)
+                           Subject
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.IsActive)
+                           Start Time
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.ClassSubjectTable.Title)
+                           End Time
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.ClassTable.Name)
+                            Day
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.RoomTable.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SessionProgrameSubjectSettingTable.Description)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.StaffTable.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.SubjectTable.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UserTable.FullName)
+                           Status
                         </th>
                         <th>
                             Action
@@ -57,46 +45,51 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StartTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EndTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Day)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsActive)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ClassSubjectTable.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ClassTable.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.RoomTable.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SessionProgrameSubjectSettingTable.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StaffTable.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SubjectTable.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserTable.FullName)
-                            </td>
-                            <td class="btn-group">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.TimeTableID }, new { @class = "btn btn-primary" })
-                                @Html.ActionLink("Details", "Details", new { id = item.TimeTableID }, new { @class = "btn btn-info" })
-                                @Html.ActionLink("Delete", "Delete", new { id = item.TimeTableID }, new { @class = "btn btn-danger" })
-                            </td>
-                        </tr>
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.StaffTable.StaffID)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffTable.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClassSubjectTable.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Day)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClassTable.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoomTable.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SessionProgrameSubjectSettingTable.Description)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubjectTable.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserTable.FullName)
+                        </td>
+                        <td class="btn-group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.TimeTableID }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.TimeTableID }, new { @class = "btn btn-info" })
+                            <!-- @Html.ActionLink("Delete", "Delete", new { id = item.TimeTableID }, new { @class = "btn btn-danger" })  -->
+                        </td>
+                    </tr>
                     }
                 </tbody>
 

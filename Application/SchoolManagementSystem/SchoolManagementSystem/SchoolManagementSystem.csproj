@@ -109,6 +109,7 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -184,6 +185,7 @@
     <Compile Include="Controllers\StudentTablesController.cs" />
     <Compile Include="Controllers\SubjectTablesController.cs" />
     <Compile Include="Controllers\SubmissionFeeTablesController.cs" />
+    <Compile Include="Controllers\TimeTableReportsController.cs" />
     <Compile Include="Controllers\TimeTblTablesController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
     <Compile Include="Controllers\UserTypeTablesController.cs" />
@@ -2346,6 +2348,7 @@
     <Content Include="Views\RoomTables\Details.cshtml" />
     <Content Include="Views\RoomTables\Edit.cshtml" />
     <Content Include="Views\RoomTables\Index.cshtml" />
+    <Content Include="Views\TimeTableReports\TeacherReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

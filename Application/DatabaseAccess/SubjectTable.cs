@@ -12,6 +12,7 @@ namespace DatabaseAccess
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class SubjectTable
     {
@@ -19,7 +20,6 @@ namespace DatabaseAccess
         public SubjectTable()
         {
             this.ClassSubjectTables = new HashSet<ClassSubjectTable>();
-            this.ExamMarkTables = new HashSet<ExamMarkTable>();
             this.SessionProgrameSubjectSettingTables = new HashSet<SessionProgrameSubjectSettingTable>();
             this.TimeTblTables = new HashSet<TimeTblTable>();
         }
@@ -31,12 +31,12 @@ namespace DatabaseAccess
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime RegDate { get; set; }
         public string Description { get; set; }
+        [Range(0, 9999)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TotalMarks { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClassSubjectTable> ClassSubjectTables { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExamMarkTable> ExamMarkTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SessionProgrameSubjectSettingTable> SessionProgrameSubjectSettingTables { get; set; }
         public virtual UserTable UserTable { get; set; }

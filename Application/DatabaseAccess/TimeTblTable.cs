@@ -31,7 +31,6 @@ namespace DatabaseAccess
         public virtual ClassSubjectTable ClassSubjectTable { get; set; }
         public virtual ClassTable ClassTable { get; set; }
         public virtual RoomTable RoomTable { get; set; }
-        public virtual SessionProgrameSubjectSettingTable SessionProgrameSubjectSettingTable { get; set; }
         public virtual StaffTable StaffTable { get; set; }
         public virtual SubjectTable SubjectTable { get; set; }
         public virtual UserTable UserTable { get; set; }

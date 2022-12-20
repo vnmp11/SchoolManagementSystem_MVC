@@ -16,17 +16,11 @@ namespace DatabaseAccess
     public partial class ExpensesTable
     {
         public int ExpensesID { get; set; }
-
-        [Required(ErrorMessage ="Select Expenses Type!")]
         public int ExpenseType_ID { get; set; }
         public Nullable<int> User_ID { get; set; }
-        [Required(ErrorMessage = "Please Enter Amount!")]
         public double Amount { get; set; }
         public string InvoiceNo { get; set; }
-        [Required(ErrorMessage = "Please Enter Reason!")]
         public string Reason { get; set; }
-
-        [Required(ErrorMessage = "Select Expenses Date!")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime ExpDate { get; set; }

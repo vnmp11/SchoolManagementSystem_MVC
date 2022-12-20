@@ -44,7 +44,6 @@ namespace DatabaseAccess
             this.SubjectTables = new HashSet<SubjectTable>();
             this.SubmissionFeeTables = new HashSet<SubmissionFeeTable>();
             this.TimeTblTables = new HashSet<TimeTblTable>();
-            this.ExpensesTables = new HashSet<ExpensesTable>();
         }
     
         public int UserID { get; set; }
@@ -110,10 +109,6 @@ namespace DatabaseAccess
         public virtual ICollection<SubmissionFeeTable> SubmissionFeeTables { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TimeTblTable> TimeTblTables { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual UserTypeTable UserTypeTable { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
-        public virtual ICollection<ExpensesTable> ExpensesTable { get; set; }
     }
 }

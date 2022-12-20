@@ -15,12 +15,6 @@ namespace DatabaseAccess
 
     public partial class SessionProgrameSubjectSettingTable
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SessionProgrameSubjectSettingTable()
-        {
-            this.TimeTblTables = new HashSet<TimeTblTable>();
-        }
-    
         public int SessionProgrameSubjectSettingID { get; set; }
         public int User_ID { get; set; }
         public int Session_ID { get; set; }
@@ -38,7 +32,5 @@ namespace DatabaseAccess
         public virtual SessionTable SessionTable { get; set; }
         public virtual SubjectTable SubjectTable { get; set; }
         public virtual UserTable UserTable { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TimeTblTable> TimeTblTables { get; set; }
     }
 }

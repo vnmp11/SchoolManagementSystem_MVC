@@ -16,6 +16,9 @@
                 <thead>
                     <tr>
                         <th>
+                            No.
+                        </th>
+                        <th>
                             Title
                         </th>
                         <th>
@@ -32,22 +35,25 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsActive)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserTable.FullName)
-                            </td>
-                            <td class="btn-group">
-                                @Html.ActionLink("Edit", "Edit", new { id = item.DesignationID }, new { @class = "btn btn-primary" })
-                                @Html.ActionLink("Details", "Details", new { id = item.DesignationID }, new { @class = "btn btn-info" })
-                                @Html.ActionLink("Delete", "Delete", new { id = item.DesignationID }, new { @class = "btn btn-danger" })
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DesignationID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserTable.FullName)
+                        </td>
+                        <td class="btn-group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.DesignationID }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Details", "Details", new { id = item.DesignationID }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.DesignationID }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
                     }
 
                 </tbody>

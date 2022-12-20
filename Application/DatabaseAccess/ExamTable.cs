@@ -33,6 +33,7 @@ namespace DatabaseAccess
         public System.DateTime EndDate { get; set; }
         [DataType(DataType.MultilineText)]
         public string Descrption { get; set; }
+
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamMarkTable> ExamMarkTables { get; set; }

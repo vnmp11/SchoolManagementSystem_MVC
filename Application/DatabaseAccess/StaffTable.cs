@@ -28,9 +28,12 @@ namespace DatabaseAccess
     
         public int StaffID { get; set; }
         public int User_ID { get; set; }
+        [Required]
         public string Name { get; set; }
         public int Designation_ID { get; set; }
+        [Required]
         public string ContactNo { get; set; }
+        [Required]
         public string EmailAddress { get; set; }
         public string Address { get; set; }
         public string Qualification { get; set; }
@@ -45,7 +48,6 @@ namespace DatabaseAccess
         [DataType(DataType.Upload)]
         [NotMapped]
         public HttpPostedFileBase PhotoFile { get; set; }
-
 
         public virtual DesignationTable DesignationTable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

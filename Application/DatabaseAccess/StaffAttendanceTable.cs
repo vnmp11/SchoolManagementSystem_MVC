@@ -20,9 +20,9 @@ namespace DatabaseAccess
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime AttendDate { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.Time)]
         public Nullable<System.TimeSpan> ComingTime { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.Time)]
         public Nullable<System.TimeSpan> ClosingTime { get; set; }
     
         public virtual StaffTable StaffTable { get; set; }

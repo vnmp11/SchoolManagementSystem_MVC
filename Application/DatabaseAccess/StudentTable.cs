@@ -52,7 +52,6 @@ namespace DatabaseAccess
         [NotMapped]
         public HttpPostedFileBase PhotoFile { get; set; }
 
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AttendanceTable> AttendanceTables { get; set; }
         public virtual ClassTable ClassTable { get; set; }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using DatabaseAccess;
 
 namespace SchoolManagementSystem.Controllers
@@ -22,7 +23,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var timeTblTables = db.TimeTblTables.Include(t => t.ClassSubjectTable).Include(t => t.ClassTable).Include(t => t.RoomTable).Include(t => t.SessionProgrameSubjectSettingTable).Include(t => t.StaffTable).Include(t => t.SubjectTable).Include(t => t.UserTable).OrderByDescending(e=>e.TimeTableID);
+            var timeTblTables = db.TimeTblTables.Include(t => t.ClassSubjectTable).Include(t => t.ClassTable).Include(t => t.RoomTable).Include(t => t.StaffTable).Include(t => t.SubjectTable).Include(t => t.UserTable).OrderByDescending(e=>e.TimeTableID);
             return View(timeTblTables.ToList());
         }
 
@@ -55,9 +56,9 @@ namespace SchoolManagementSystem.Controllers
             }
 
             ViewBag.ClassSubjectID = new SelectList(db.ClassSubjectTables.Where(s => s.IsActive == true), "ClassSubjectID", "Title");
-            ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name");
+            //ViewBag.ClassID = new SelectList(db.ClassTables, "ClassID", "Name");
             ViewBag.Room_ID = new SelectList(db.RoomTables, "RoomID", "Title");
-            ViewBag.ClassSubjectID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description");
+            ViewBag.SessionProgrameSubjectSettingID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description");
             ViewBag.StaffID = new SelectList(db.StaffTables.Where(s=>s.IsActive == true), "StaffID", "Name");
             ViewBag.Subject_ID = new SelectList(db.SubjectTables, "SubjectID", "Name");
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName");
@@ -75,7 +76,7 @@ namespace SchoolManagementSystem.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-
+            //MessageBox.Show(timeTblTable.SessionProgrameSubjectSettingTable.ToString());
             int userId = Convert.ToInt32(Convert.ToString(Session["UserID"]));
             timeTblTable.User_ID = userId;
 
@@ -85,11 +86,11 @@ namespace SchoolManagementSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.ClassSubjectID = new SelectList(db.ClassSubjectTables.Where(s => s.IsActive == true), "ClassSubjectID", "Title", timeTblTable.ClassSubjectID);
-            //ViewBag.ClassSubjectID = new SelectList(db.ClassTables, "ClassID", "Name", timeTblTable.ClassSubjectID);
+           // ViewBag.ClassSubjectID = new SelectList(db.ClassSubjectTables, "ClassSubjectID", "Name", timeTblTable.ClassSubjectID);
             ViewBag.Room_ID = new SelectList(db.RoomTables, "RoomID", "Title", timeTblTable.Room_ID);
-            ViewBag.ClassSubjectID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description", timeTblTable.ClassSubjectID);
+           // ViewBag.SessionProgrameSubjectSettingID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description", timeTblTable.SessionProgrameSubjectSettingTable);
             ViewBag.StaffID = new SelectList(db.StaffTables.Where(s => s.IsActive == true), "StaffID", "Name", timeTblTable.StaffID);
             ViewBag.Subject_ID = new SelectList(db.SubjectTables, "SubjectID", "Name", timeTblTable.Subject_ID);
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", timeTblTable.User_ID);
@@ -115,9 +116,9 @@ namespace SchoolManagementSystem.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClassSubjectID = new SelectList(db.ClassSubjectTables.Where(s => s.IsActive == true), "ClassSubjectID", "Title", timeTblTable.ClassSubjectID);
-            ViewBag.ClassSubjectID = new SelectList(db.ClassTables, "ClassID", "Name", timeTblTable.ClassSubjectID);
+           // ViewBag.ClassSubjectID = new SelectList(db.ClassTables, "ClassID", "Name", timeTblTable.ClassSubjectID);
             ViewBag.Room_ID = new SelectList(db.RoomTables, "RoomID", "Title", timeTblTable.Room_ID);
-            ViewBag.ClassSubjectID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description", timeTblTable.ClassSubjectID);
+          //  ViewBag.SessionProgrameSubjectSettingID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description", timeTblTable.SessionProgrameSubjectSettingTable);
             ViewBag.StaffID = new SelectList(db.StaffTables.Where(s => s.IsActive == true), "StaffID", "Name", timeTblTable.StaffID);
             ViewBag.Subject_ID = new SelectList(db.SubjectTables, "SubjectID", "Name", timeTblTable.Subject_ID);
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", timeTblTable.User_ID);
@@ -146,9 +147,9 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ClassSubjectID = new SelectList(db.ClassSubjectTables.Where(s => s.IsActive == true), "ClassSubjectID", "Title", timeTblTable.ClassSubjectID);
-            ViewBag.ClassSubjectID = new SelectList(db.ClassTables, "ClassID", "Name", timeTblTable.ClassSubjectID);
+            //ViewBag.ClassSubjectID = new SelectList(db.ClassTables, "ClassID", "Name", timeTblTable.ClassSubjectID);
             ViewBag.Room_ID = new SelectList(db.RoomTables, "RoomID", "Title", timeTblTable.Room_ID);
-            ViewBag.ClassSubjectID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description", timeTblTable.ClassSubjectID);
+          // ViewBag.SessionProgrameSubjectSettingID = new SelectList(db.SessionProgrameSubjectSettingTables, "SessionProgrameSubjectSettingID", "Description", timeTblTable.SessionProgrameSubjectSettingTable);
             ViewBag.StaffID = new SelectList(db.StaffTables.Where(s => s.IsActive == true), "StaffID", "Name", timeTblTable.StaffID);
             ViewBag.Subject_ID = new SelectList(db.SubjectTables, "SubjectID", "Name", timeTblTable.Subject_ID);
             ViewBag.User_ID = new SelectList(db.UserTables, "UserID", "FullName", timeTblTable.User_ID);

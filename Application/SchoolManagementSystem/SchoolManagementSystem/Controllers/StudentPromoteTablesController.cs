@@ -177,7 +177,7 @@ namespace SchoolManagementSystem.Controllers
         {
             int studentid = Convert.ToInt32(sid);
             var student = db.StudentTables.Find(studentid);
-            var promoteid = db.StudentPromoteTables.Where(p => p.StudentID == studentid).Max(m=> m.StudentPromoteID);
+            var promoteid = db.StudentPromoteTables.Where(p => p.StudentID == studentid).Select(t => t.StudentPromoteID).DefaultIfEmpty(-1).Max();
             List<ClassTable> classTables = new List<ClassTable>();
             if (promoteid > 0)
             {

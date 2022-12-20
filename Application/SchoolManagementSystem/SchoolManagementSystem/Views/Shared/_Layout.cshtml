@@ -196,15 +196,41 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-sticky-note"></i>
-                    <span>Exam Setting</span>
+                    <span>Exam Management</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @Html.ActionLink("Exam", "Index", "ExamTables", null, new { @class = "collapse-item" })
-                        @Html.ActionLink("Add Marks Sheet", "Index", "ExamMarkTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Examinations", "Index", "ExamTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Marks Sheet", "Index", "ExamMarkTables", null, new { @class = "collapse-item" })
                     </div>
                 </div>
             </li>
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                EVENT
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEvent"
+                   aria-expanded="true" aria-controls="collapseEvent">
+                    <i class="fas fa-fw fa-sticky-note"></i>
+                    <span>Event Management</span>
+                </a>
+                <div id="collapseEvent" class="collapse" aria-labelledby="headingEvent" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @Html.ActionLink("New Event", "Create", "EventTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("All Events", "Index", "EventTables", null, new { @class = "collapse-item" })
+                    </div>
+                </div>
+            </li>
+
 
             <!-- EXPANSE////////////////////////////////////////////////////// -->
             <!-- EXPANSE////////////////////////////////////////////////////// -->
@@ -213,26 +239,24 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Time table
+                Timetable
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseexpenses"
-                   aria-expanded="true" aria-controls="collapseexpenses">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTimeTable"
+                   aria-expanded="true" aria-controls="collapseTimeTable">
                     <i class="fas fa-fw fa-sticky-note"></i>
-                    <span>Expanses</span>
+                    <span>Timetable</span>
                 </a>
-                <div id="collapseexpenses" class="collapse" aria-labelledby="headingexpenses" data-parent="#accordionSidebar">
+                <div id="collapseTimeTable" class="collapse" aria-labelledby="headingTimeTable" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">SETTING</h6>
-                        @Html.ActionLink("Set Time Table", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
-                      
-
+                        <h6 class="collapse-header">Setting</h6>
+                        @Html.ActionLink("Set Timetable", "Create", "TimeTblTables", null, new { @class = "collapse-item" })
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Class Wise</h6>
-                            @Html.ActionLink("Time Table", "Create", "TimeTblTables", null, new { @class = "collapse-item" })
-                          
+                            @Html.ActionLink("Timetable List", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+
                         </div>
                     </div>
             </li>
@@ -260,7 +284,7 @@
 
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Class Wise</h6>
-                            @Html.ActionLink("Add Expenses", "Create", "ExpensesTables", null, new { @class = "collapse-item" })
+                            @Html.ActionLink("New Expenses", "Create", "ExpensesTables", null, new { @class = "collapse-item" })
                             @Html.ActionLink("Expenses List", "Index", "ExpensesTables", null, new { @class = "collapse-item" })
                         </div>
                     </div>
@@ -268,17 +292,25 @@
             <!-- EXPANSE////////////////////////////////////////////////////// -->
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReport"
+                   aria-expanded="true" aria-controls="collapseReport">
+                    <i class="fas fa-fw fa-sticky-note"></i>
+                    <span>Basic Reports</span>
                 </a>
+                <div id="collapseReport" class="collapse" aria-labelledby="headingReport" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Teacher Reports</h6>
+                        @Html.ActionLink("Time Table Reports", "TeacherWiseReport", "TimeTableReports", null, new { @class = "collapse-item" })
+                       
+                   
+                    </div>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span>
+                    <span>Table</span>
                 </a>
             </li>
 

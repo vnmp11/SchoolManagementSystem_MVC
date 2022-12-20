@@ -2349,6 +2349,7 @@
     <Content Include="Views\RoomTables\Edit.cshtml" />
     <Content Include="Views\RoomTables\Index.cshtml" />
     <Content Include="Views\TimeTableReports\TeacherReport.cshtml" />
+    <Content Include="Views\TimeTableReports\TeacherWiseReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

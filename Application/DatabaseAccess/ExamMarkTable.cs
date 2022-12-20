@@ -15,7 +15,7 @@ namespace DatabaseAccess
     public partial class ExamMarkTable
     {
         public int MarkID { get; set; }
-        public int SubjectID { get; set; }
+       public Nullable<int> SubjectID { get; set; }
         public int ExamID { get; set; }
         public int StudentID { get; set; }
         public int UserID { get; set; }

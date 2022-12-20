@@ -23,7 +23,7 @@ namespace SchoolManagementSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var eventTables = db.EventTables.Include(e => e.UserTable);
+            var eventTables = db.EventTables.Include(e => e.UserTable).OrderByDescending(e=>e.EventID);
             return View(eventTables.ToList());
         }
 

@@ -16,6 +16,7 @@ namespace SchoolManagementSystem.Controllers
         private SchoolMgtDbEntities db = new SchoolMgtDbEntities();
 
         // GET: ExamMarkTables
+        public Nullable<int> SubjectID { get; set; }
         public ActionResult Index()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))

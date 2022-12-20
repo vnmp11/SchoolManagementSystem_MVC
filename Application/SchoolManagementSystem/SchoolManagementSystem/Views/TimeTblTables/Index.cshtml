@@ -9,7 +9,7 @@
 </p>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">All Annual Fee</h6>
+        <h6 class="m-0 font-weight-bold text-primary">All Time Tables</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -20,81 +20,91 @@
                             Teacher ID
                         </th>
                         <th>
-                           Teacher
+                            Teacher
                         </th>
                         <th>
-                           Subject
+                            Class Subject
                         </th>
                         <th>
-                           Start Time
+                            Start Time
                         </th>
                         <th>
-                           End Time
+                            End Time
                         </th>
                         <th>
                             Day
                         </th>
                         <th>
-                           Status
+                            Status
+                        </th>
+                        <th>
+                            Class
+                        </th>
+                        <th>
+                            Room
+                        </th>
+                        <th>
+                            Subject
+                        </th>
+                        <th>
+                            User
                         </th>
                         <th>
                             Action
                         </th>
                     </tr>
-                    </thead>
+                </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <th>
-                            @Html.DisplayFor(modelItem => item.StaffTable.StaffID)
-                        </th>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StaffTable.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ClassSubjectTable.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Day)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>
+                        <tr>
+                            <th>
+                                @Html.DisplayFor(modelItem => item.StaffTable.StaffID)
+                            </th>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StaffTable.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassSubjectTable.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Day)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ClassTable.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoomTable.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SessionProgrameSubjectSettingTable.Description)
-                        </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClassTable.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RoomTable.Title)
+                            </td>
 
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SubjectTable.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.UserTable.FullName)
-                        </td>
-                        <td class="btn-group">
-                            @Html.ActionLink("Edit", "Edit", new { id = item.TimeTableID }, new { @class = "btn btn-primary" })
-                            @Html.ActionLink("Details", "Details", new { id = item.TimeTableID }, new { @class = "btn btn-info" })
-                            <!-- @Html.ActionLink("Delete", "Delete", new { id = item.TimeTableID }, new { @class = "btn btn-danger" })  -->
-                        </td>
-                    </tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SubjectTable.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserTable.FullName)
+                            </td>
+                            <td class="btn-group">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.TimeTableID }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Details", "Details", new { id = item.TimeTableID }, new { @class = "btn btn-info" })
+                                @Html.ActionLink("Delete", "Delete", new { id = item.TimeTableID }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
                     }
                 </tbody>
 
             </table>
 
-            </div>
         </div>
     </div>
+</div>

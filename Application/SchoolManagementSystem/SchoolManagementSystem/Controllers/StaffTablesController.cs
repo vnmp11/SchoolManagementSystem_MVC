@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -147,7 +148,22 @@ namespace SchoolManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(staffTable).State = EntityState.Modified;
-                db.SaveChanges();
+               
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            Response.Write("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                        }
+                    }
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.Designation_ID = new SelectList(db.DesignationTables, "DesignationID", "Title", staffTable.Designation_ID);

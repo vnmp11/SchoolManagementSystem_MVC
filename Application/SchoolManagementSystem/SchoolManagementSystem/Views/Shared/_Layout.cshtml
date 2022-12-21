@@ -300,10 +300,17 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Teacher Reports</h6>
                         @Html.ActionLink("Time Table Reports", "TeacherWiseReport", "TimeTableReports", null, new { @class = "collapse-item" })
-                       
-                   
+                        <h6 class="collapse-header">Attendence Reports</h6>
+                        @Html.ActionLink("Student  Reports", "StudentAttendanceWise", "AttendanceReports", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Staff Attendance Reports", "StaffAttendanceWise", "AttendanceReports", null, new { @class = "collapse-item" })
+                        
+                        <h6 class="collapse-header">Adminstration Reports</h6>
+                        @Html.ActionLink("Expenses Reports", "ExpensesWise", "ExpensesReport", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Custom Expenses", "CustomExpenses", "ExpensesReport", null, new { @class = "collapse-item" })
                     </div>
-            </li>
+
+
+
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">

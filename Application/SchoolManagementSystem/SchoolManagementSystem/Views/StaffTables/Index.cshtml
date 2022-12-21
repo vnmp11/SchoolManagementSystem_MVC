@@ -85,7 +85,8 @@
                                     @Html.ActionLink("Details", "Details", new { id = item.StaffID }, new { @class = "btn btn-info" })
                                     @Html.ActionLink("Delete", "Delete", new { id = item.StaffID }, new { @class = "btn btn-danger" })
                                     @Html.ActionLink("Add Resume", "CheckCV", "Resume", new { id = item.StaffID }, new { @class = "btn btn-success" })
-                                    @Html.ActionLink("Timetable", "TeacherReport", "TimetableReports", new { id = item.StaffID}, new { @class = "btn btn-info" })
+                                    @Html.ActionLink("Timetable", "TeacherReport", "TimetableReports", new { id = item.StaffID }, new { @class = "btn btn-info" })
+                                    @Html.ActionLink("Attendance", "StaffAttendance", "AttendanceReports", new { id = item.StaffID }, new { @class = "btn btn-info" })
 
                                 </td>
                             </tr>

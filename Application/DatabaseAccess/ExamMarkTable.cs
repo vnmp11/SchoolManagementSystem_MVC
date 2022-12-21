@@ -22,7 +22,6 @@ namespace DatabaseAccess
         public int ObtainMarks { get; set; }
         public int ClassSubjectID { get; set; }
         public Nullable<int> SubjectID { get; set; }
-    
         public virtual ClassSubjectTable ClassSubjectTable { get; set; }
         public virtual ExamTable ExamTable { get; set; }
         public virtual StudentTable StudentTable { get; set; }

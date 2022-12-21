@@ -177,11 +177,22 @@ namespace SchoolManagementSystem.Controllers
         {
             int studentid = Convert.ToInt32(sid);
             var student = db.StudentTables.Find(studentid);
-            var promoteid = db.StudentPromoteTables.Where(p => p.StudentID == studentid).Select(t => t.StudentPromoteID).DefaultIfEmpty(-1).Max();
+            int promoteid = 0;
+            try
+            {
+                promoteid = db.StudentPromoteTables.Where(p => p.StudentID == studentid).Max(m => m.StudentPromoteID);
+            }
+            catch
+            {
+                promoteid = 0;
+            }
+
+            
             List<ClassTable> classTables = new List<ClassTable>();
             if (promoteid > 0)
             {
-                foreach (var cls in db.ClassTables.Where(cls => cls.ClassID > db.StudentPromoteTables.Find(promoteid).ClassID))
+                var promotetable = db.StudentPromoteTables.Find(promoteid);
+                foreach (var cls in db.ClassTables.Where(cls => cls.ClassID > promotetable.ClassID))
                 {
                     classTables.Add(new ClassTable { ClassID = cls.ClassID, Name = cls.Name });
                 }

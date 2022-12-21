@@ -74,7 +74,8 @@
                         </td>
 
                         <td class="btn-group">
-                            @*@Html.ActionLink("Timetable", "StudentReport", "TimeTableReports", new { id = item.StudentID }, new { @class = "btn btn-info" })*@
+                            @Html.ActionLink("Timetable", "StudentReport", "TimeTableReports", new { id = item.StudentID }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Attendance", "StudentAttendance", "AttendanceReports", new { id = item.StudentID }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Edit", "Edit", new { id = item.StudentID }, new { @class = "btn btn-primary" })
                             @Html.ActionLink("Details", "Details", new { id = item.StudentID }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Delete", "Delete", new { id = item.StudentID }, new { @class = "btn btn-danger" })

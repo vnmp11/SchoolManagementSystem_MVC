@@ -161,6 +161,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AnnualTablesController.cs" />
+    <Compile Include="Controllers\AttendanceReportsController.cs" />
     <Compile Include="Controllers\AttendanceTablesController.cs" />
     <Compile Include="Controllers\ClassSubjectTablesController.cs" />
     <Compile Include="Controllers\ClassTablesController.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Controllers\ExamMarkTablesController.cs" />
     <Compile Include="Controllers\ExamSettingTablesController.cs" />
     <Compile Include="Controllers\ExamTablesController.cs" />
+    <Compile Include="Controllers\ExpensesReportController.cs" />
     <Compile Include="Controllers\ExpensesTablesController.cs" />
     <Compile Include="Controllers\ExpensesTypeTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2350,6 +2352,13 @@
     <Content Include="Views\RoomTables\Index.cshtml" />
     <Content Include="Views\TimeTableReports\TeacherReport.cshtml" />
     <Content Include="Views\TimeTableReports\TeacherWiseReport.cshtml" />
+    <Content Include="Views\TimeTableReports\StudentReport.cshtml" />
+    <Content Include="Views\AttendanceReports\StudentAttendance.cshtml" />
+    <Content Include="Views\AttendanceReports\StudentAttendanceWise.cshtml" />
+    <Content Include="Views\AttendanceReports\StaffAttendanceWise.cshtml" />
+    <Content Include="Views\AttendanceReports\StaffAttendance.cshtml" />
+    <Content Include="Views\ExpensesReport\ExpensesWise.cshtml" />
+    <Content Include="Views\ExpensesReport\CustomExpenses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
